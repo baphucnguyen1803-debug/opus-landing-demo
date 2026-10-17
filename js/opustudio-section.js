@@ -45,12 +45,16 @@
     }
 
     COLORWAYS.forEach(function (cw, i) {
-      var btn = document.createElement("button");
-      btn.type = "button";
-      btn.title = cw.name;
-      btn.setAttribute("aria-label", cw.name);
-      btn.style.background = cw.swatch;
-      btn.setAttribute("role", "option");
+      var btn = window.OpusSwatch
+        ? window.OpusSwatch.createButton({ label: cw.name, color: cw.swatch, role: "option" })
+        : document.createElement("button");
+      if (!window.OpusSwatch) {
+        btn.type = "button";
+        btn.title = cw.name;
+        btn.setAttribute("aria-label", cw.name);
+        btn.style.background = cw.swatch;
+        btn.setAttribute("role", "option");
+      }
       btn.addEventListener("click", function () {
         userTouched = true;
         if (cycleTimer) clearInterval(cycleTimer);
@@ -133,11 +137,20 @@
       showHint();
       if (variants && mv.availableVariants && mv.availableVariants.length) {
         variants.hidden = false;
+        var variantColors = {
+          midnight: "#1a1a1a",
+          beach: "#e8e2d8",
+          street: "#6b6b6b",
+        };
         mv.availableVariants.forEach(function (name) {
-          var btn = document.createElement("button");
-          btn.type = "button";
-          btn.title = name;
-          btn.setAttribute("aria-label", name);
+          var btn = window.OpusSwatch
+            ? window.OpusSwatch.createButton({ label: name, color: variantColors[name] || "#888", role: "button" })
+            : document.createElement("button");
+          if (!window.OpusSwatch) {
+            btn.type = "button";
+            btn.title = name;
+            btn.setAttribute("aria-label", name);
+          }
           btn.addEventListener("click", function () { mv.variantName = name; });
           variants.appendChild(btn);
         });

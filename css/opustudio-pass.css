@@ -90,19 +90,34 @@
   gap: 12px;
 }
 
-.studio-render__swatches button {
+.colorway-swatch,
+.studio-render__swatches button,
+.studio-ecom__variants button {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  border: 2px solid transparent;
+  border: none;
   padding: 0;
   cursor: pointer;
   position: relative;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
 }
 
+.colorway-swatch--low-contrast,
+.studio-render__swatches button.colorway-swatch--low-contrast,
+.studio-ecom__variants button.colorway-swatch--low-contrast {
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+}
+
+.colorway-swatch.is-selected,
 .studio-render__swatches button.is-selected {
   outline: 2px solid #fff;
   outline-offset: 3px;
+}
+
+.studio-ecom__variants button {
+  width: 28px;
+  height: 28px;
 }
 
 .studio-render__swatches button:focus-visible {
