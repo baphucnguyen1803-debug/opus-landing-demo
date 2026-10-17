@@ -1,0 +1,109 @@
+.audience-block {
+  margin-top: var(--space-xl);
+}
+
+.audience-intro h2 {
+  font-size: clamp(30px, 3vw, 44px);
+  line-height: 1.15;
+  color: #fff;
+}
+
+.audience-intro__lede {
+  font-size: 20px;
+  line-height: 1.6;
+  max-width: 60ch;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.audience-intro + .audience-grid {
+  margin-top: 56px;
+}
+
+.audience-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.audience-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 220px;
+  padding: 32px;
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  transition: border-color 300ms ease, transform 300ms ease;
+}
+
+.audience-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(168, 91, 56, 0.14);
+  color: #d97b4a;
+  margin-bottom: 20px;
+  transition: background 300ms ease, color 300ms ease;
+}
+
+.audience-card__title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 8px;
+}
+
+.audience-card__line {
+  font-size: 17px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+.audience-card__thumb {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 10px;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 300ms ease, transform 300ms ease;
+  pointer-events: none;
+}
+
+.audience-card:hover,
+.audience-card:focus-within {
+  border-color: rgba(217, 123, 74, 0.6);
+  transform: translateY(-4px);
+}
+
+.audience-card:hover .audience-card__icon,
+.audience-card:focus-within .audience-card__icon {
+  background: #d97b4a;
+  color: #fff;
+}
+
+.audience-card:hover .audience-card__thumb,
+.audience-card:focus-within .audience-card__thumb {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@media (max-width: 1024px) {
+  .audience-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .audience-grid {
+    grid-template-columns: 1fr;
+  }
+}
