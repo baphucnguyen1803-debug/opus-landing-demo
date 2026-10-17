@@ -1,0 +1,54 @@
+.presence-map-card__layout {
+  grid-template-columns: 8fr 4fr;
+  gap: 24px;
+  align-items: stretch;
+}
+
+.presence-globe-panel {
+  min-height: 520px;
+  border-radius: 20px;
+  background: #0f0e0d;
+  overflow: hidden;
+  position: relative;
+}
+
+.presence-globe-panel canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.globe-fallback {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 520px;
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.globe-fallback img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 42% 48%;
+  display: block;
+}
+
+.globe-fallback__overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 900px) {
+  .presence-map-card__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .presence-globe-panel,
+  .globe-fallback {
+    min-height: 360px;
+  }
+}
