@@ -1,5 +1,3 @@
-import Globe from "globe.gl";
-
 var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 var LOCATIONS = [
@@ -21,15 +19,21 @@ function webglOk() {
   }
 }
 
+function wireFlatLegend() {
+  document.querySelectorAll(".map-legend-item[data-map-id]").forEach(function (btn) {
+    btn.addEventListener("mouseenter", function () { btn.classList.add("is-highlight"); });
+    btn.addEventListener("mouseleave", function () { btn.classList.remove("is-highlight"); });
+  });
+}
+
 function renderFlatFallback(mount) {
   mount.innerHTML =
     '<div class="globe-fallback">' +
     '<img src="assets/map/earth-blue-marble.jpg" alt="Earth map">' +
     '<svg class="globe-fallback__overlay" viewBox="0 0 100 50" preserveAspectRatio="none" aria-hidden="true"></svg>' +
     "</div>";
-  var img = mount.querySelector("img");
   var svg = mount.querySelector("svg");
-  if (!img || !svg) return;
+  if (!svg) return;
 
   function project(lng, lat) {
     var lonMin = -15;
@@ -49,7 +53,6 @@ function renderFlatFallback(mount) {
     c.setAttribute("r", loc.type === "hub" ? "1.2" : "0.9");
     c.setAttribute("fill", loc.type === "hub" ? "#D97B4A" : "#fff");
     c.setAttribute("stroke", loc.type === "hub" ? "none" : "#D97B4A");
-    c.setAttribute("data-id", loc.id);
     svg.appendChild(c);
   });
 
@@ -63,17 +66,17 @@ function renderFlatFallback(mount) {
   path.setAttribute("stroke-width", "0.4");
   path.setAttribute("stroke-dasharray", "2 1");
   svg.appendChild(path);
+  wireFlatLegend();
 }
 
-function bootGlobe(mount) {
+function bootGlobe(mount, Globe) {
   var globe = Globe()(mount)
     .globeImageUrl("assets/map/earth-blue-marble.jpg")
     .bumpImageUrl("assets/map/earth-topology.png")
     .backgroundColor("rgba(0,0,0,0)")
     .showAtmosphere(true)
     .atmosphereColor("#E8C9B5")
-    .atmosphereAltitude(0.16)
-    .enablePointerInteraction(true);
+    .atmosphereAltitude(0.16);
 
   globe.controls().enableZoom = false;
   globe.controls().autoRotate = false;
@@ -123,14 +126,16 @@ function bootGlobe(mount) {
   if (renderer) renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 
   var card = document.getElementById("presence-map-card");
-  var obs = new IntersectionObserver(function (entries) {
-    if (entries[0].isIntersecting) {
-      globe.pointOfView(INITIAL_POV, 0);
-    } else if (renderer) {
-      renderer.setAnimationLoop(null);
-    }
-  }, { threshold: 0.15 });
-  if (card) obs.observe(card);
+  if (card && "IntersectionObserver" in window) {
+    var obs = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) {
+        globe.pointOfView(INITIAL_POV, 0);
+      } else if (renderer) {
+        renderer.setAnimationLoop(null);
+      }
+    }, { threshold: 0.15 });
+    obs.observe(card);
+  }
 
   document.querySelectorAll(".map-legend-item[data-map-id]").forEach(function (btn) {
     var id = btn.getAttribute("data-map-id");
@@ -149,8 +154,6 @@ function bootGlobe(mount) {
     btn.addEventListener("mouseleave", leave);
     btn.addEventListener("blur", leave);
   });
-
-  return globe;
 }
 
 function init() {
@@ -162,11 +165,27 @@ function init() {
     return;
   }
 
-  try {
-    bootGlobe(mount);
-  } catch (err) {
-    console.error("[OPUS globe]", err);
-    renderFlatFallback(mount);
+  var card = document.getElementById("presence-map-card");
+  var start = function () {
+    import("globe.gl")
+      .then(function (mod) {
+        bootGlobe(mount, mod.default);
+      })
+      .catch(function (err) {
+        console.error("[OPUS globe]", err);
+        renderFlatFallback(mount);
+      });
+  };
+
+  if (card && "IntersectionObserver" in window) {
+    var obs = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      start();
+      obs.disconnect();
+    }, { threshold: 0.12 });
+    obs.observe(card);
+  } else {
+    start();
   }
 }
 
