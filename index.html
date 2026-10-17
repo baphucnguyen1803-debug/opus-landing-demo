@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="css/opustudio-pass.css">
   <link rel="stylesheet" href="css/audience-pass.css">
   <link rel="stylesheet" href="css/globe-pass.css">
+  <link rel="stylesheet" href="css/pillar-pass.css">
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 </head>
 <body>
@@ -84,33 +85,24 @@
           <p class="lede">Three specialized pillars support the work from early concept to market communication and Vietnam-based production.</p>
         </div>
         <div class="pillar-grid">
-          <article class="pillar-card reveal">
-            <div class="media-slot media-slot--pillar" data-media-id="M03" data-kind="image" data-ratio="16/10" data-alt="Footwear design and 3D development in OPUSlab">
-              <span class="media-slot__id">M03 · LOOP / IMAGE 4:5</span>
-              <span class="media-slot__desc">OPUSlab card: a designer working on a 3D model on the last, or a pattern maker’s hands at work.</span>
-            </div>
+          <article class="pillar-card reveal" tabindex="0">
+            <div class="autoplay-video pillar-card__media" data-mp4="assets/pillars/lab.mp4" data-webm="assets/pillars/lab.webm" data-poster="assets/pillars/lab-poster.jpg" data-fallback-image="assets/media/M03.jpg" aria-hidden="true"></div>
             <div class="pillar-card__body stack">
               <h3>OPUSlab</h3>
               <p>OPUSlab creates and develops footwear through design, advanced 3D, technical engineering, prototyping, and manufacturing preparation.</p>
               <a class="text-link" href="#opuslab">Explore OPUSlab</a>
             </div>
           </article>
-          <article class="pillar-card reveal">
-            <div class="media-slot media-slot--pillar" data-media-id="M04" data-kind="image" data-ratio="16/10" data-alt="Photorealistic footwear render for OPUStudio">
-              <span class="media-slot__id">M04 · LOOP / IMAGE 4:5</span>
-              <span class="media-slot__desc">OPUStudio card: a rendered shoe turning, or switching between colorways.</span>
-            </div>
+          <article class="pillar-card reveal" tabindex="0">
+            <div class="autoplay-video pillar-card__media" data-mp4="assets/pillars/studio.mp4" data-webm="assets/pillars/studio.webm" data-poster="assets/pillars/studio-poster.jpg" data-fallback-image="assets/media/M04.jpg" aria-hidden="true"></div>
             <div class="pillar-card__body stack">
               <h3>OPUStudio</h3>
               <p>OPUStudio turns footwear into photorealistic renders, animation, videos, interactive e-commerce visuals, sales tools, and launch content.</p>
               <a class="text-link" href="#opustudio">Explore OPUStudio</a>
             </div>
           </article>
-          <article class="pillar-card reveal">
-            <div class="media-slot media-slot--pillar" data-media-id="M05" data-kind="image" data-ratio="16/10" data-alt="Footwear assembly and manufacturing in Vietnam">
-              <span class="media-slot__id">M05 · LOOP / IMAGE 4:5</span>
-              <span class="media-slot__desc">OPUS Manufacturing card: an assembly line or lasting machine in motion.</span>
-            </div>
+          <article class="pillar-card reveal" tabindex="0">
+            <div class="autoplay-video pillar-card__media" data-mp4="assets/pillars/manufacturing.mp4" data-webm="assets/pillars/manufacturing.webm" data-poster="assets/pillars/manufacturing-poster.jpg" data-fallback-image="assets/media/M05.jpg" aria-hidden="true"></div>
             <div class="pillar-card__body stack">
               <h3>OPUS Manufacturing</h3>
               <p>OPUS Manufacturing operates Vietnam-based production shaped by category, construction, technical requirements, quality control, and production capabilities.</p>
@@ -578,7 +570,11 @@
 
             <div class="presence-map-card reveal" id="presence-map-card" aria-label="OPUS global presence map">
               <div class="presence-map-card__layout">
-                <div class="presence-globe-panel" id="presence-globe-mount" aria-hidden="false"></div>
+                <div class="presence-map-2d" id="presence-map-2d">
+                  <div class="presence-map-2d__skeleton" aria-hidden="true"></div>
+                  <svg class="presence-map-2d__svg" role="img" aria-label="OPUS global presence map"></svg>
+                  <div class="presence-map-2d__pins"></div>
+                </div>
                 <div class="map-legend-panel" id="map-legend-panel">
                   <div class="map-legend-group">
                     <p class="map-legend-group__title">Core hubs</p>
@@ -891,8 +887,10 @@
   <script src="js/media-manifest.js"></script>
   <script src="js/main.js"></script>
   <script src="js/components.js"></script>
+  <script src="js/autoplay-video.js"></script>
+  <script src="js/swatch-utils.js"></script>
+  <script src="js/lab-compare.js"></script>
   <script src="js/opustudio-section.js"></script>
-  <script src="assets/vendor/globe.gl.min.js"></script>
-  <script src="js/globe-presence.js"></script>
+  <script type="module" src="assets/vendor/map-presence.bundle.mjs"></script>
 </body>
 </html>

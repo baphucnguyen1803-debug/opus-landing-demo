@@ -250,12 +250,6 @@
     }
     slot.replaceChildren(video);
     slot.classList.add("is-filled");
-    var card = slot.closest(".pillar-card");
-    if (card) {
-      video.autoplay = false;
-      card.addEventListener("mouseenter", function () { video.play().catch(function () {}); });
-      card.addEventListener("mouseleave", function () { video.pause(); });
-    }
   }
 
   function fillSequence(slot, entry) {
@@ -309,6 +303,10 @@
       label.textContent = "Colorway: " + name;
     };
     buttons.forEach(function (btn) {
+      if (window.OpusSwatch) {
+        var c = btn.getAttribute("data-swatch-color") || btn.style.backgroundColor;
+        window.OpusSwatch.apply(btn, c);
+      }
       btn.addEventListener("click", function () {
         buttons.forEach(function (b) {
           b.classList.toggle("is-active", b === btn);
