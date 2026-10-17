@@ -20,5 +20,5 @@ window.SITE_CONFIG = {
   afterSubmitRedirect: "#top",
   mainSiteUrl: "",
   /* Set true only when cad.jpg and render.jpg are the same shoe, angle, and framing. */
-  comparisonReady: false
+  comparisonReady: true
 };

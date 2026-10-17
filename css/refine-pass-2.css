@@ -460,12 +460,12 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 40px;
-  height: 40px;
-  margin: -20px;
+  width: 44px;
+  height: 44px;
+  margin: -22px;
   border-radius: 50%;
   background: #fff;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   display: grid;
   place-items: center;
   font-size: 14px;
@@ -484,12 +484,22 @@
   border-radius: 6px;
 }
 
-.compare-slider__label--cad {
+.compare-slider__label--left {
   left: 16px;
+  transition: opacity 250ms ease;
 }
 
-.compare-slider__label--render {
+.compare-slider__label--right {
   right: 16px;
+  transition: opacity 250ms ease;
+}
+
+.compare-slider__knob {
+  font-size: 14px;
+}
+
+.compare-slider__handle {
+  z-index: 3;
 }
 
 @media (max-width: 900px) {
