@@ -15,15 +15,6 @@
   <link rel="stylesheet" href="css/audience-pass.css">
   <link rel="stylesheet" href="css/globe-pass.css">
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
-  <script type="importmap">
-  {
-    "imports": {
-      "globe.gl": "./node_modules/globe.gl/dist/globe.gl.mjs",
-      "three": "./node_modules/three/build/three.module.js",
-      "three/": "./node_modules/three/"
-    }
-  }
-  </script>
 </head>
 <body>
   <header class="site-header" id="site-header">
@@ -901,6 +892,7 @@
   <script src="js/main.js"></script>
   <script src="js/components.js"></script>
   <script src="js/opustudio-section.js"></script>
-  <script type="module" src="js/globe-presence.js" crossorigin="anonymous"></script>
+  <script src="assets/vendor/globe.gl.min.js"></script>
+  <script src="js/globe-presence.js"></script>
 </body>
 </html>
