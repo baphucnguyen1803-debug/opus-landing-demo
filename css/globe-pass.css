@@ -4,42 +4,154 @@
   align-items: stretch;
 }
 
-.presence-globe-panel {
+.presence-map-2d {
+  position: relative;
   min-height: 520px;
   border-radius: 20px;
-  background: #0f0e0d;
+  background: #faf8f4;
   overflow: hidden;
-  position: relative;
 }
 
-.presence-globe-panel canvas {
-  display: block;
-  width: 100% !important;
-  height: 100% !important;
-}
-
-.globe-fallback {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  min-height: 520px;
-  overflow: hidden;
-  border-radius: 20px;
-}
-
-.globe-fallback img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 42% 48%;
-  display: block;
-}
-
-.globe-fallback__overlay {
+.presence-map-2d__skeleton {
   position: absolute;
   inset: 0;
+  background: #efebe4;
+  animation: mapSkeleton 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes mapSkeleton {
+  from { opacity: 0.85; }
+  to { opacity: 1; }
+}
+
+.presence-map-2d.is-ready .presence-map-2d__skeleton {
+  display: none;
+}
+
+.presence-map-2d__svg {
+  display: block;
   width: 100%;
   height: 100%;
+  min-height: 520px;
+}
+
+.map-country {
+  fill: #e4ded4;
+  stroke: #fff;
+  stroke-width: 0.6;
+}
+
+.map-country--presence {
+  fill: rgba(168, 91, 56, 0.22);
+  stroke: rgba(168, 91, 56, 0.5);
+}
+
+.map-country--presence.is-loc-highlight {
+  fill: rgba(168, 91, 56, 0.38);
+}
+
+.map-arc-line {
+  fill: none;
+  stroke: #d97b4a;
+  stroke-opacity: 0.6;
+  stroke-width: 1.5;
+  stroke-dasharray: 6 4;
+  stroke-dashoffset: 1;
+}
+
+.presence-map-2d.is-in-view .map-arc-line {
+  animation: mapArcDraw 1.5s ease forwards;
+}
+
+@keyframes mapArcDraw {
+  to { stroke-dashoffset: 0; }
+}
+
+.presence-map-2d__pins {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.map-pin {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: transform 200ms ease;
+}
+
+.map-pin.is-highlight {
+  transform: translate(-50%, -100%) scale(1.15);
+  z-index: 3;
+}
+
+.map-pin__badge {
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.map-pin--hub .map-pin__badge {
+  width: 44px;
+  height: 44px;
+  border: 2px solid #d97b4a;
+  animation: hubPulse 2.4s ease-out infinite;
+}
+
+.map-pin--support .map-pin__badge {
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid rgba(217, 123, 74, 0.6);
+}
+
+.map-pin__badge img {
+  width: 78%;
+  height: auto;
+  object-fit: contain;
+}
+
+.map-pin__pointer {
+  display: block;
+  width: 10px;
+  height: 10px;
+  margin: -2px auto 0;
+  background: #fff;
+  transform: rotate(45deg);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.12);
+}
+
+.map-pin__label {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  margin-top: 8px;
+  transform-origin: left top;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a1a;
+  background: #fff;
+  padding: 4px 10px;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  pointer-events: none;
+}
+
+.map-pin__leader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 1px;
+  background: rgba(26, 26, 26, 0.25);
+  transform-origin: left center;
+  pointer-events: none;
 }
 
 @media (max-width: 900px) {
@@ -47,8 +159,28 @@
     grid-template-columns: 1fr;
   }
 
-  .presence-globe-panel,
-  .globe-fallback {
+  .presence-map-2d,
+  .presence-map-2d__svg {
     min-height: 360px;
+  }
+
+  .map-pin__label--hub-only-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .map-pin.is-label-on .map-pin__label--hub-only-hidden {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .map-pin--hub .map-pin__badge {
+    animation: none;
+  }
+
+  .presence-map-2d.is-in-view .map-arc-line {
+    animation: none;
+    stroke-dashoffset: 0;
   }
 }
