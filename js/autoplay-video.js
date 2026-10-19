@@ -104,7 +104,7 @@
       video.loop = true;
       video.playsInline = true;
       video.setAttribute("playsinline", "");
-      video.preload = "metadata";
+      video.preload = "none";
       if (poster) video.poster = poster;
       if (srcWebm) {
         var sW = document.createElement("source");
