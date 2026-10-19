@@ -256,23 +256,7 @@
   }
 
   function initBandCtaVideo() {
-    var band = document.getElementById("band-cta-section");
-    var video = band && band.querySelector(".band-cta__frame-video");
-    if (!band || !video) return;
-    var mobile = window.matchMedia("(max-width: 767px)").matches;
-    var canPlay = !reduceMotion && !mobile;
-    if (!canPlay) return;
-    if ("IntersectionObserver" in window) {
-      var obs = new IntersectionObserver(function (entries) {
-        if (entries[0].isIntersecting) {
-          video.load();
-          video.play().catch(function () {});
-        } else {
-          video.pause();
-        }
-      }, { rootMargin: "200px 0px", threshold: 0.01 });
-      obs.observe(band);
-    }
+    /* Band CTA uses a static image (About OPUS 6). */
   }
 
   function boot() {

@@ -225,7 +225,7 @@
   overflow: hidden;
 }
 
-.studio-ecom__viewer model-viewer {
+.studio-ecom__viewer .studio-ecom__spin-img {
   width: 100%;
   height: 100%;
 }

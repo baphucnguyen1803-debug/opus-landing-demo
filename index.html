@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="css/audience-pass.css">
   <link rel="stylesheet" href="css/globe-pass.css">
   <link rel="stylesheet" href="css/pillar-pass.css">
-  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+  <link rel="stylesheet" href="css/media-layout-pass.css">
 </head>
 <body>
   <header class="site-header" id="site-header">
@@ -132,15 +132,7 @@
         <!-- OPTION B (commented): vertical service card — image 16/10 full width, text below, padding 28px. -->
         <div class="service-card-grid sr-stagger section-content">
           <article class="service-card service-card--featured sr-in" id="product-creation">
-            <div class="service-card__media">
-              <img src="assets/lab/product-creation.jpg" alt="" width="960" height="640" onerror="this.parentElement.classList.add('is-placeholder'); this.remove();">
-              <span class="service-card__media-fallback" aria-hidden="true">
-                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M8 40L18 14l8 10 6-6 8 22H8z" stroke="#A85B38" stroke-width="1.5" stroke-linejoin="round"/>
-                  <path d="M14 8h20M24 8v6" stroke="#6B6B6B" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
-              </span>
-            </div>
+            <div class="service-card__media media-slot" data-media-id="OPUS-PC" data-kind="video" data-ratio="16/10" data-alt="Product Creation at OPUSlab"></div>
             <div class="service-card__body stack">
               <p class="service-card__eyebrow">Where it starts</p>
               <h3>Product Creation</h3>
@@ -149,7 +141,7 @@
             </div>
           </article>
           <article class="service-card sr-in">
-            <div class="service-card__media media-slot" data-media-id="M07" data-kind="image" data-ratio="4/3"></div>
+            <div class="service-card__media media-slot" data-media-id="M07" data-kind="video" data-ratio="4/3" data-alt="Design and 3D Development"></div>
             <div class="service-card__body stack">
               <h3>Design & 3D Development</h3>
               <p>Design & 3D Development helps teams review footwear earlier through CAD, 3D models, last-based proportion review, material exploration, and editable digital product data.</p>
@@ -157,7 +149,7 @@
             </div>
           </article>
           <article class="service-card sr-in">
-            <div class="service-card__media media-slot" data-media-id="M08" data-kind="image" data-ratio="4/3"></div>
+            <div class="service-card__media media-slot" data-media-id="M08" data-kind="video" data-ratio="4/3" data-alt="Virtual Development"></div>
             <div class="service-card__body stack">
               <h3>Virtual Development</h3>
               <p>Virtual Development supports digital footwear workflows for both new and existing styles. This can include physical-to-digital conversion, reusable 3D style libraries, material and color updates, and virtual assets that help product teams review, update, and manage styles more efficiently across seasons.</p>
@@ -165,7 +157,7 @@
             </div>
           </article>
           <article class="service-card sr-in">
-            <div class="service-card__media hover-video" data-poster="assets/media/M09.jpg" data-video=""></div>
+            <div class="service-card__media media-slot" data-media-id="M09" data-kind="video" data-ratio="4/3" data-alt="Development Center"></div>
             <div class="service-card__body stack">
               <h3>Development Center</h3>
               <p>The Development Center is where footwear becomes physical. It develops last, pattern, construction, materials, development tooling, sampling stages, fitting, testing, line review, and manufacturing readiness.</p>
@@ -173,7 +165,7 @@
             </div>
           </article>
           <article class="service-card sr-in">
-            <div class="service-card__media media-slot" data-media-id="M10" data-kind="image" data-ratio="4/3"></div>
+            <div class="service-card__media media-slot" data-media-id="M10" data-kind="video" data-ratio="4/3" data-alt="Outsole mould and tooling"></div>
             <div class="service-card__body stack">
               <h3>Outsole Mould & Tooling Engineering</h3>
               <p>Outsole Mould and Tooling Engineering focus on the bottom unit of the shoe. OPUSlab supports outsole design, 3D development, blueprinting, mockups, compound and process alignment, mould development, and sole engineering. This helps brands review outsole concepts before mould investment and prepare bottom units for real product, wear, and manufacturing conditions.</p>
@@ -185,10 +177,7 @@
         <div class="stages reveal stack">
           <h3>Sampling as a structured development process</h3>
           <p class="lede">Sampling is not one event. Each sample stage answers a different question.</p>
-          <div class="stages__visual media-slot media-slot--wide" data-media-id="M11" data-kind="image" data-ratio="21/9">
-            <span class="media-slot__id">M11 · IMAGE 21:9</span>
-            <span class="media-slot__desc">Samples laid out on a table or shelf in the sample room, ideally the same style at different stages.</span>
-          </div>
+          <div class="stages__visual media-slot media-slot--wide" data-media-id="M11" data-kind="image" data-ratio="21/9" data-alt="Sampling development process"></div>
           <div class="stage-grid sr-stagger">
             <article class="stage-card sr-in">
               <span class="timeline__n">01</span>
@@ -243,14 +232,14 @@
           <article class="studio-card studio-card--render sr-in" id="studio-render-card">
             <div class="studio-render__stage-wrap">
               <div class="studio-render__stage">
-                <img class="studio-render__img" id="studio-render-img" src="assets/media/M12-A.jpg" alt="">
+                <img class="studio-render__img" id="studio-render-img" src="assets/media/wire/opustudio/render-opt-1.jpg" alt="">
               </div>
               <div class="studio-render__tabs" id="studio-render-tabs" hidden></div>
             </div>
             <div class="studio-render__panel stack">
               <h3>3D Rendering</h3>
               <p>Realistic footwear renders for product pages, campaigns, launch previews, sales presentations, and material or colorway updates.</p>
-              <p class="studio-render__colorway-label">Colorway: <span id="studio-colorway-name">Sandstone</span></p>
+              <p class="studio-render__colorway-label">Colorway: <span id="studio-colorway-name">Option 1</span></p>
               <div class="studio-render__swatches" id="studio-render-swatches" role="listbox" aria-label="Colorway options"></div>
               <a class="studio-card__cta" href="#contact" data-cta="Discuss Footwear Rendering" data-support="opustudio">Discuss Footwear Rendering →</a>
             </div>
@@ -266,41 +255,25 @@
               </div>
             </article>
             <article class="studio-card studio-card--assets sr-in">
+              <div class="studio-assets__visual">
+                <img id="studio-digital-asset-img" src="assets/media/wire/opustudio/digital-asset.jpg" alt="" loading="lazy">
+              </div>
               <div class="studio-assets__inner stack">
                 <h3>Digital Asset Creation</h3>
                 <p>Reusable digital product assets and digital style libraries that support sales teams, e-commerce, seasonal updates, launch planning, and internal product communication.</p>
                 <a class="studio-card__cta" href="#contact" data-cta="Discuss Digital Product Assets" data-support="opustudio">Discuss Digital Product Assets →</a>
-                <div class="studio-assets__mosaic" id="studio-assets-mosaic" aria-hidden="true"></div>
               </div>
             </article>
           </div>
-          <!-- TODO: Replace MaterialsVariantsShoe.glb (CC-BY 4.0 Khronos sample) with OPUStudio production model before launch. -->
           <article class="studio-card studio-card--ecom sr-in">
             <div class="studio-ecom__viewer-wrap">
               <div class="studio-ecom__viewer" id="studio-ecom-viewer">
-                <model-viewer
-                  id="studio-shoe-model"
-                  src="assets/studio/shoe.glb"
-                  poster="assets/media/M14.jpg"
-                  camera-controls
-                  disable-zoom
-                  auto-rotate
-                  auto-rotate-delay="1200"
-                  rotation-per-second="18deg"
-                  interaction-prompt="auto"
-                  shadow-intensity="0.8"
-                  exposure="1"
-                  loading="lazy"
-                  reveal="auto"
-                  ar
-                  ar-modes="webxr scene-viewer quick-look"
-                  alt="Interactive footwear model">
-                </model-viewer>
-                <span class="studio-ecom__hint" id="studio-ecom-hint" hidden>
+                <img id="studio-ecom-spin-img" class="studio-ecom__spin-img" src="assets/media/wire/opustudio/ecom-opt-1.jpg" alt="Interactive footwear product views">
+                <span class="studio-ecom__hint" id="studio-ecom-hint">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 13V8.5a2.5 2.5 0 0 1 5 0V13"/><path d="M6 13h12l-1 8H7l-1-8z"/></svg>
                   Drag to rotate
                 </span>
-                <div class="studio-ecom__variants" id="studio-model-variants" hidden></div>
+                <div class="studio-ecom__dots" id="studio-ecom-dots" aria-label="Product angles"></div>
               </div>
             </div>
             <div class="studio-ecom__panel stack">
@@ -358,10 +331,7 @@
       </div>
 
       <div class="overlay-band overlay-band--studio">
-        <div class="media-slot media-slot--bleed media-slot--band" data-media-id="M13" data-kind="video" data-ratio="16/9" data-alt="Footwear showcase animation for OPUStudio">
-          <span class="media-slot__id">M13 · ANIMATION 10–20 s</span>
-          <span class="media-slot__desc">A turntable or exploded-view animation of one shoe.</span>
-        </div>
+        <div class="media-slot media-slot--bleed media-slot--band" data-media-id="M13" data-kind="video" data-ratio="16/9" data-alt="Footwear showcase animation for OPUStudio"></div>
         <div class="overlay-band__copy stack">
           <p>That is where OPUStudio creates value: not only in the final image, but in the asset system behind it.</p>
           <a class="btn btn--primary" href="#contact" data-cta="Talk to OPUStudio" data-support="opustudio">Talk to OPUStudio</a>
@@ -416,47 +386,47 @@
         <div class="tech-showcase sr-in">
           <div class="tech-showcase__lists">
             <h4 class="tech-group__title">Constructions</h4>
-            <button type="button" class="tech-pick is-active" data-media="assets/media/M19-A.jpg" data-caption="board-lasted constructions">board-lasted constructions</button>
-            <button type="button" class="tech-pick" data-media="assets/media/M19-B.jpg" data-caption="strobel constructions">strobel constructions</button>
-            <button type="button" class="tech-pick" data-media="assets/media/M19-C.jpg" data-caption="waterproof bootie systems">waterproof bootie systems</button>
-            <button type="button" class="tech-pick" data-media="assets/media/M19-D.jpg" data-caption="sacchetto constructions">sacchetto constructions</button>
-            <button type="button" class="tech-pick" data-media="assets/media/M19-A.jpg" data-caption="vulcanized constructions">vulcanized constructions</button>
+            <button type="button" class="tech-pick is-active" data-media="assets/media/wire/tech/board-lasted.jpg" data-caption="board-lasted constructions">board-lasted constructions</button>
+            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/strobel.jpg" data-caption="strobel constructions">strobel constructions</button>
+            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/waterproof-bootie.jpg" data-caption="waterproof bootie systems">waterproof bootie systems</button>
+            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/sacchetto.jpg" data-caption="sacchetto constructions">sacchetto constructions</button>
+            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/vulcanized.jpg" data-caption="vulcanized constructions">vulcanized constructions</button>
             <h4 class="tech-group__title">Materials &amp; uppers</h4>
-            <button type="button" class="tech-pick" data-media="assets/media/M19-B.jpg" data-caption="engineered mesh uppers">engineered mesh uppers</button>
-            <button type="button" class="tech-pick" data-media="assets/media/M19-C.jpg" data-caption="knitted uppers">knitted uppers</button>
-            <button type="button" class="tech-pick" data-media="assets/media/M19-D.jpg" data-caption="mixed-material upper developments">mixed-material upper developments</button>
+            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/engineered-mesh.jpg" data-caption="engineered mesh uppers">engineered mesh uppers</button>
+            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/knitted-uppers.jpg" data-caption="knitted uppers">knitted uppers</button>
+            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/mixed-material.jpg" data-caption="mixed-material upper developments">mixed-material upper developments</button>
             <h4 class="tech-group__title">Processes</h4>
-            <button type="button" class="tech-pick" data-media="assets/media/M19-B.jpg" data-caption="HF applications">HF applications</button>
-            <button type="button" class="tech-pick" data-media="assets/media/M19-B.jpg" data-caption="no-sew techniques">no-sew techniques</button>
-            <button type="button" class="tech-pick" data-media="assets/media/M19-D.jpg" data-caption="computerized stitching">computerized stitching</button>
-            <button type="button" class="tech-pick" data-media="assets/media/M19-C.jpg" data-caption="comfort engineering">comfort engineering</button>
-            <button type="button" class="tech-pick" data-media="assets/media/M19-A.jpg" data-caption="selected automated operations">selected automated operations</button>
+            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/hf-applications.jpg" data-caption="HF applications">HF applications</button>
+            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/no-sew.jpg" data-caption="no-sew techniques">no-sew techniques</button>
+            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/computerized-stitching.jpg" data-caption="computerized stitching">computerized stitching</button>
+            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/comfort-engineering.jpg" data-caption="comfort engineering">comfort engineering</button>
+            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/automated-operations.jpg" data-caption="selected automated operations">selected automated operations</button>
           </div>
           <div class="tech-showcase__panel">
             <div class="tech-showcase__media">
-              <img id="tech-showcase-img" src="assets/media/M19-A.jpg" alt="" style="width:100%;height:100%;object-fit:cover;transition:opacity 300ms ease">
+              <img id="tech-showcase-img" src="assets/media/wire/tech/board-lasted.jpg" alt="" style="width:100%;height:100%;object-fit:cover;transition:opacity 300ms ease">
             </div>
             <p class="tech-showcase__caption" id="tech-showcase-caption">board-lasted constructions</p>
           </div>
         </div>
         <div class="process-hover-grid sr-stagger">
           <article class="process-card sr-in">
-            <div class="hover-video" data-poster="assets/media/M19-A.jpg" data-video=""></div>
+            <div class="hover-video" data-poster="assets/media/wire/tech/waterproof-bootie.jpg" data-video=""></div>
             <span class="process-card__play" aria-hidden="true">▶</span>
             <p class="process-card__caption">Waterproof construction</p>
           </article>
           <article class="process-card sr-in">
-            <div class="hover-video" data-poster="assets/media/M19-B.jpg" data-video=""></div>
+            <div class="hover-video" data-poster="assets/media/wire/tech/hf-applications.jpg" data-video=""></div>
             <span class="process-card__play" aria-hidden="true">▶</span>
             <p class="process-card__caption">HF / no-sew</p>
           </article>
           <article class="process-card sr-in">
-            <div class="hover-video" data-poster="assets/media/M19-C.jpg" data-video=""></div>
+            <div class="hover-video" data-poster="assets/media/wire/tech/comfort-engineering.jpg" data-video=""></div>
             <span class="process-card__play" aria-hidden="true">▶</span>
             <p class="process-card__caption">Stock fitting</p>
           </article>
           <article class="process-card sr-in">
-            <div class="hover-video" data-poster="assets/media/M19-D.jpg" data-video=""></div>
+            <div class="hover-video" data-poster="assets/media/wire/tech/computerized-stitching.jpg" data-video=""></div>
             <span class="process-card__play" aria-hidden="true">▶</span>
             <p class="process-card__caption">Computerized stitching</p>
           </article>
@@ -550,10 +520,7 @@
 
     <section class="about" id="about">
       <div class="about-intro">
-        <div class="media-slot media-slot--bleed" data-media-id="M23" data-kind="image" data-ratio="21/9">
-          <span class="media-slot__id">M23 · IMAGE 21:9</span>
-          <span class="media-slot__desc">The team, the 3D studio or a manufacturing unit: a wide, real photo that shows Opus as a place with people.</span>
-        </div>
+        <div class="media-slot media-slot--bleed" data-media-id="M23" data-kind="video" data-ratio="21/9" data-alt="About OPUS"></div>
         <div class="container about-intro__copy stack">
           <p class="eyebrow">About OPUS</p>
           <h2>A footwear partner shaped by people, place, and product</h2>
@@ -572,10 +539,7 @@
               <p>As OPUS has grown, that knowledge has become more structured. Today, it is organized through OPUSlab, OPUStudio, and OPUS Manufacturing, so product thinking, digital presentation, manufacturing coordination, and quality oversight can stay closer to the product.</p>
             </div>
             <div class="about-story__media reveal">
-              <div class="media-slot" data-media-id="M28" data-kind="image" data-ratio="4/5">
-                <span class="media-slot__id">M28 · IMAGE 4:5</span>
-                <span class="media-slot__desc">People at work: pattern maker, developer, QC or the team together.</span>
-              </div>
+              <div class="media-slot" data-media-id="M28" data-kind="image" data-ratio="4/5" data-alt="OPUS team and craft"></div>
             </div>
           </div>
 
@@ -625,10 +589,7 @@
 
             <div class="place-grid">
               <article class="place-card">
-                <div class="media-slot" data-media-id="M25" data-kind="image" data-ratio="16/10">
-                  <span class="media-slot__id">M25 · IMAGE 4:3</span>
-                  <span class="media-slot__desc">Card 1: Treviso design studio.</span>
-                </div>
+                <div class="media-slot" data-media-id="M25" data-kind="video" data-ratio="16/10" data-alt="Design thinking in Italy"></div>
                 <div class="stack place-card__body">
                   <p class="eyebrow">Italy</p>
                   <h3>Design thinking in footwear</h3>
@@ -636,10 +597,7 @@
                 </div>
               </article>
               <article class="place-card">
-                <div class="media-slot" data-media-id="M26" data-kind="image" data-ratio="16/10">
-                  <span class="media-slot__id">M26 · IMAGE 4:3</span>
-                  <span class="media-slot__desc">Card 2: Ho Chi Minh City headquarters or 3D studio.</span>
-                </div>
+                <div class="media-slot" data-media-id="M26" data-kind="video" data-ratio="16/10" data-alt="Development and production in Vietnam"></div>
                 <div class="stack place-card__body">
                   <p class="eyebrow">Vietnam</p>
                   <h3>Where design moves into physical development and production</h3>
@@ -647,10 +605,7 @@
                 </div>
               </article>
               <article class="place-card">
-                <div class="media-slot" data-media-id="M27" data-kind="image" data-ratio="16/10">
-                  <span class="media-slot__id">M27 · IMAGE 4:3</span>
-                  <span class="media-slot__desc">Card 3: a manufacturing unit exterior or the team on a call with international partners.</span>
-                </div>
+                <div class="media-slot" data-media-id="M27" data-kind="video" data-ratio="16/10" data-alt="International brand operations"></div>
                 <div class="stack place-card__body">
                   <p class="eyebrow">International presence</p>
                   <h3>Supporting the operations of international brands</h3>
@@ -725,11 +680,8 @@
             </ul>
             <a class="btn btn--cta-white" href="#contact" data-cta="Start a Project">Start a Project <span class="btn__arrow" aria-hidden="true">→</span></a>
           </div>
-          <div class="band-cta__video-frame">
-            <video class="band-cta__frame-video" muted loop playsinline preload="none" poster="assets/video/cta-poster.jpg">
-              <source src="assets/video/cta-loop.webm" type="video/webm">
-              <source src="assets/video/cta-loop.mp4" type="video/mp4">
-            </video>
+          <div class="band-cta__media-frame">
+            <img class="band-cta__frame-img" src="assets/media/wire/about/about-6.jpg" alt="" loading="lazy" width="800" height="1000">
           </div>
         </div>
       </section>

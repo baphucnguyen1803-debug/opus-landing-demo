@@ -1034,14 +1034,16 @@ section.band-cta-section.band-cta--solid {
   align-items: center;
 }
 
-.band-cta__video-frame {
+.band-cta__video-frame,
+.band-cta__media-frame {
   border-radius: 24px;
   overflow: hidden;
   aspect-ratio: 4 / 5;
   background: #8a4a2c;
 }
 
-.band-cta__video-frame video {
+.band-cta__video-frame video,
+.band-cta__media-frame img {
   width: 100%;
   height: 100%;
   object-fit: cover;

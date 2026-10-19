@@ -2,8 +2,8 @@
   "use strict";
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var FINAL = "assets/lab/shoe-final.jpg";
-  var DRAWING = "assets/lab/shoe-drawing.jpg";
+  var FINAL = "assets/media/wire/lab/finished-shoe.png";
+  var DRAWING = "assets/media/wire/lab/drawing.png";
   var FALLBACK = "assets/media/M07.jpg";
 
   function imagesReady(done) {

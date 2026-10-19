@@ -4,19 +4,17 @@
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   var COLORWAYS = [
-    { id: "sandstone", name: "Sandstone", src: "assets/media/M12-A.jpg", swatch: "#e8e2d8" },
-    { id: "graphite", name: "Graphite", src: "assets/media/M12-B.jpg", swatch: "#1a1a1a" },
-    { id: "terracotta", name: "Terracotta", src: "assets/media/M12-C.jpg", swatch: "#b4532a" },
-    { id: "olive", name: "Olive", src: "assets/media/M12-D.jpg", swatch: "#5c6b4a" },
+    { id: "opt1", name: "Option 1", src: "assets/media/wire/opustudio/render-opt-1.jpg", swatch: "#e8e2d8" },
+    { id: "opt2", name: "Option 2", src: "assets/media/wire/opustudio/render-opt-2.jpg", swatch: "#6b6b6b" },
+    { id: "opt3", name: "Option 3", src: "assets/media/wire/opustudio/render-opt-3.jpg", swatch: "#b4532a" },
+    { id: "opt4", name: "Option 4", src: "assets/media/wire/opustudio/render-opt-4.jpg", swatch: "#5c6b4a" },
+    { id: "opt5", name: "Option 5", src: "assets/media/wire/opustudio/render-opt-5.jpg", swatch: "#1a1a1a" },
   ];
 
-  var MOSAIC = [
-    "assets/media/M12-A.jpg",
-    "assets/media/M12-B.jpg",
-    "assets/media/M12-C.jpg",
-    "assets/media/M14.jpg",
-    "assets/media/M16.jpg",
-    "assets/media/M22-A.jpg",
+  var ECOMM_FRAMES = [
+    "assets/media/wire/opustudio/ecom-opt-1.jpg",
+    "assets/media/wire/opustudio/ecom-opt-2.jpg",
+    "assets/media/wire/opustudio/ecom-opt-3.jpg",
   ];
 
   function initRenderCard() {
@@ -99,77 +97,77 @@
     card.addEventListener("pointerdown", function () { userTouched = true; if (cycleTimer) clearInterval(cycleTimer); });
   }
 
-  function initMosaic() {
-    var grid = document.getElementById("studio-assets-mosaic");
-    if (!grid) return;
-    MOSAIC.forEach(function (src) {
-      var im = document.createElement("img");
-      im.src = src;
-      im.alt = "";
-      grid.appendChild(im);
-    });
-    if ("IntersectionObserver" in window) {
-      var obs = new IntersectionObserver(function (entries) {
-        if (!entries[0].isIntersecting) return;
-        grid.classList.add("is-in");
-        grid.querySelectorAll("img").forEach(function (img, i) {
-          img.style.transitionDelay = i * 40 + "ms";
-        });
-        obs.disconnect();
-      }, { threshold: 0.2 });
-      obs.observe(grid);
-    }
+  function initDigitalAssetVisual() {
+    var img = document.getElementById("studio-digital-asset-img");
+    if (!img) return;
+    img.src = "assets/media/wire/opustudio/digital-asset.jpg";
   }
 
-  function initModelViewer() {
-    var mv = document.getElementById("studio-shoe-model");
+  function initEcomSpin() {
+    var wrap = document.getElementById("studio-ecom-viewer");
+    var img = document.getElementById("studio-ecom-spin-img");
     var hint = document.getElementById("studio-ecom-hint");
-    var variants = document.getElementById("studio-model-variants");
-    if (!mv) return;
+    var dots = document.getElementById("studio-ecom-dots");
+    if (!wrap || !img) return;
+
+    var frame = 0;
+    var down = false;
+    var lastX = 0;
+
+    function setFrame(i) {
+      frame = (i + ECOMM_FRAMES.length) % ECOMM_FRAMES.length;
+      img.src = ECOMM_FRAMES[frame];
+      if (dots) {
+        dots.querySelectorAll("button").forEach(function (btn, j) {
+          btn.classList.toggle("is-active", j === frame);
+        });
+      }
+    }
+
+    setFrame(0);
+    ECOMM_FRAMES.forEach(function (_, i) {
+      var im = new Image();
+      im.src = ECOMM_FRAMES[i];
+    });
+
+    if (dots) {
+      ECOMM_FRAMES.forEach(function (_, i) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.setAttribute("aria-label", "View angle " + (i + 1));
+        btn.addEventListener("click", function () { setFrame(i); });
+        dots.appendChild(btn);
+      });
+    }
 
     var showHint = function () {
       if (!hint || reduceMotion) return;
       hint.hidden = false;
       hint.classList.remove("is-hidden");
     };
+    showHint();
 
-    mv.addEventListener("load", function () {
-      showHint();
-      if (variants && mv.availableVariants && mv.availableVariants.length) {
-        variants.hidden = false;
-        var variantColors = {
-          midnight: "#1a1a1a",
-          beach: "#e8e2d8",
-          street: "#6b6b6b",
-        };
-        mv.availableVariants.forEach(function (name) {
-          var btn = window.OpusSwatch
-            ? window.OpusSwatch.createButton({ label: name, color: variantColors[name] || "#888", role: "button" })
-            : document.createElement("button");
-          if (!window.OpusSwatch) {
-            btn.type = "button";
-            btn.title = name;
-            btn.setAttribute("aria-label", name);
-          }
-          btn.addEventListener("click", function () { mv.variantName = name; });
-          variants.appendChild(btn);
-        });
-      }
-    });
-
-    mv.addEventListener("camera-change", function () {
+    wrap.addEventListener("pointerdown", function (e) {
+      down = true;
+      lastX = e.clientX;
+      wrap.setPointerCapture(e.pointerId);
       if (hint) hint.classList.add("is-hidden");
-    }, { once: true });
-
-    mv.addEventListener("error", function () {
-      if (hint) hint.hidden = true;
     });
+    wrap.addEventListener("pointermove", function (e) {
+      if (!down) return;
+      var dx = e.clientX - lastX;
+      if (Math.abs(dx) < 12) return;
+      lastX = e.clientX;
+      setFrame(frame + (dx > 0 ? 1 : -1));
+    });
+    wrap.addEventListener("pointerup", function () { down = false; });
+    wrap.addEventListener("pointercancel", function () { down = false; });
   }
 
   function boot() {
     initRenderCard();
-    initMosaic();
-    initModelViewer();
+    initDigitalAssetVisual();
+    initEcomSpin();
     window.dispatchEvent(new CustomEvent("opus:studio-mounted"));
   }
 
