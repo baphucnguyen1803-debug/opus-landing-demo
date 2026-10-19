@@ -85,16 +85,14 @@
     }
 
     var mp4Url = mediaUrl(mp4);
-    var webmUrl = mediaUrl(webm);
-    assetOk(mp4Url, function (okMp4) {
-      if (okMp4) {
-        buildVideo(mp4Url, webmUrl);
-        return;
-      }
-      assetOk(webmUrl, function (okWebm) {
-        if (okWebm) buildVideo(null, webmUrl);
-        else showFallback();
-      });
+    var webmUrl = webm ? mediaUrl(webm) : null;
+    if (mp4) {
+      buildVideo(mp4Url, null);
+      return;
+    }
+    assetOk(webmUrl, function (okWebm) {
+      if (okWebm) buildVideo(null, webmUrl);
+      else showFallback();
     });
 
     function buildVideo(srcMp4, srcWebm) {

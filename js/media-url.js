@@ -41,6 +41,9 @@
   function resolveMediaUrl(path) {
     if (!path || /^https?:\/\//i.test(path)) return path;
     var encoded = encodePathSegments(path);
+    var loc = global.location;
+    /* GitHub Actions deploy serves real MP4 binaries; same-origin is faster and more reliable than LFS CDN. */
+    if (loc && loc.hostname.endsWith("github.io")) return encoded;
     var cdn = githubMediaCdnBase();
     if (cdn && isVideoPath(path)) return cdn + encoded;
     return encoded;

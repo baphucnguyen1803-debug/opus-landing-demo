@@ -331,10 +331,9 @@
   margin-top: var(--space-xl);
 }
 
-.stage-grid--3 {
-  grid-template-columns: repeat(3, 1fr);
+.stage-grid--8 {
+  grid-template-columns: repeat(4, 1fr);
   margin-top: var(--space-lg);
-  margin-bottom: var(--space-lg);
 }
 
 @media (max-width: 1100px) {
@@ -342,8 +341,8 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .stage-grid--3 {
-    grid-template-columns: 1fr;
+  .stage-grid--8 {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 

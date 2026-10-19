@@ -270,7 +270,9 @@
       attachLazyVideoSource(video);
     }
     video.addEventListener("loadeddata", function () {
-      if (!reduceMotion && eager) video.play().catch(function () {});
+      if (!reduceMotion && (eager || slot.classList.contains("is-in-view"))) {
+        video.play().catch(function () {});
+      }
     });
     slot.replaceChildren(video);
     slot.classList.add("is-filled");
@@ -356,6 +358,7 @@
   function initVideoLifecycle() {
     if (!("IntersectionObserver" in window)) return;
     document.querySelectorAll(".media-slot video").forEach(function (video) {
+      var slot = video.closest(".media-slot");
       var observer = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           if (reduceMotion) {
@@ -363,9 +366,15 @@
             return;
           }
           if (entry.isIntersecting) {
+            if (slot) slot.classList.add("is-in-view");
             attachLazyVideoSource(video);
-            video.play().catch(function () {});
+            var playWhenReady = function () {
+              video.play().catch(function () {});
+            };
+            if (video.readyState >= 2) playWhenReady();
+            else video.addEventListener("loadeddata", playWhenReady, { once: true });
           } else {
+            if (slot) slot.classList.remove("is-in-view");
             video.pause();
           }
         });
