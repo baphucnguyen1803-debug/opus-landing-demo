@@ -11,12 +11,6 @@
     { id: "pink", name: "Hồng", src: "assets/media/wire/opustudio/render-opt-5.jpg", swatch: "#d4a0a8" },
   ];
 
-  var ECOMM_VARIANTS = [
-    { id: "brown", name: "Nâu", src: "assets/media/wire/opustudio/ecom-opt-1.jpg", swatch: "#8b5a3c" },
-    { id: "white", name: "Trắng", src: "assets/media/wire/opustudio/ecom-opt-2.jpg", swatch: "#f2f0ec" },
-    { id: "red", name: "Đỏ", src: "assets/media/wire/opustudio/ecom-opt-3.jpg", swatch: "#b83232" },
-  ];
-
   function applySampledSwatch(btn, src, fallback) {
     if (!window.OpusColorSample || !btn) {
       if (window.OpusSwatch) window.OpusSwatch.apply(btn, fallback);
@@ -114,82 +108,55 @@
     img.src = "assets/media/wire/opustudio/digital-asset.jpg";
   }
 
-  function initEcomViewer() {
+  function initModelViewer() {
     var mv = document.getElementById("studio-shoe-model");
-    var productImg = document.getElementById("studio-ecom-product-img");
     var hint = document.getElementById("studio-ecom-hint");
-    var swatches = document.getElementById("studio-ecom-swatches");
-    var view3dBtn = document.getElementById("studio-ecom-view-3d");
-    if (!mv || !swatches) return;
+    var variants = document.getElementById("studio-model-variants");
+    if (!mv) return;
 
-    var mode = "3d";
-    var variantIdx = 0;
-
-    function showHint() {
+    var showHint = function () {
       if (!hint || reduceMotion) return;
       hint.hidden = false;
       hint.classList.remove("is-hidden");
-    }
+    };
 
-    function setMode(next) {
-      mode = next;
-      var is3d = mode === "3d";
-      mv.classList.toggle("is-hidden", !is3d);
-      if (productImg) productImg.classList.toggle("is-hidden", is3d);
-      if (view3dBtn) view3dBtn.hidden = is3d;
-      if (hint) {
-        hint.innerHTML = is3d
-          ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 13V8.5a2.5 2.5 0 0 1 5 0V13"/><path d="M6 13h12l-1 8H7l-1-8z"/></svg> Drag to rotate'
-          : "Product view";
+    mv.addEventListener("load", function () {
+      showHint();
+      if (variants && mv.availableVariants && mv.availableVariants.length) {
+        variants.hidden = false;
+        var variantColors = {
+          midnight: "#1a1a1a",
+          beach: "#e8e2d8",
+          street: "#6b6b6b",
+        };
+        mv.availableVariants.forEach(function (name) {
+          var btn = window.OpusSwatch
+            ? window.OpusSwatch.createButton({ label: name, color: variantColors[name] || "#888", role: "button" })
+            : document.createElement("button");
+          if (!window.OpusSwatch) {
+            btn.type = "button";
+            btn.title = name;
+            btn.setAttribute("aria-label", name);
+          }
+          btn.addEventListener("click", function () { mv.variantName = name; });
+          variants.appendChild(btn);
+        });
       }
-    }
-
-    function setVariant(i) {
-      variantIdx = i;
-      var v = ECOMM_VARIANTS[i];
-      if (productImg) productImg.src = v.src;
-      mv.setAttribute("poster", v.src);
-      swatches.querySelectorAll("button").forEach(function (btn, j) {
-        btn.classList.toggle("is-selected", j === i);
-      });
-      setMode("photo");
-    }
-
-    ECOMM_VARIANTS.forEach(function (v, i) {
-      var btn = window.OpusSwatch
-        ? window.OpusSwatch.createButton({ label: v.name, color: v.swatch, role: "option" })
-        : document.createElement("button");
-      if (!window.OpusSwatch) {
-        btn.type = "button";
-        btn.title = v.name;
-        btn.setAttribute("aria-label", v.name);
-        btn.style.background = v.swatch;
-      }
-      applySampledSwatch(btn, v.src, v.swatch);
-      btn.addEventListener("click", function () { setVariant(i); });
-      swatches.appendChild(btn);
     });
 
-    if (view3dBtn) {
-      view3dBtn.addEventListener("click", function () { setMode("3d"); });
-    }
-
-    mv.addEventListener("load", showHint);
     mv.addEventListener("camera-change", function () {
       if (hint) hint.classList.add("is-hidden");
     }, { once: true });
 
-    setMode("3d");
-    ECOMM_VARIANTS.forEach(function (v) {
-      var im = new Image();
-      im.src = v.src;
+    mv.addEventListener("error", function () {
+      if (hint) hint.hidden = true;
     });
   }
 
   function boot() {
     initRenderCard();
     initDigitalAssetVisual();
-    initEcomViewer();
+    initModelViewer();
     window.dispatchEvent(new CustomEvent("opus:studio-mounted"));
   }
 

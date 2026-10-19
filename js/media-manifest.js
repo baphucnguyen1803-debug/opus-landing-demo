@@ -25,7 +25,7 @@ window.MEDIA = {
   "M15-A": "assets/media/wire/opustudio/ecom-opt-1.jpg",
   "M15-B": "assets/media/wire/opustudio/ecom-opt-2.jpg",
   "M15-C": "assets/media/wire/opustudio/ecom-opt-3.jpg",
-  M18: "assets/media/wire/manufacturing-intro.mp4",
+  M18: "assets/media/4.1 Opus Manufacturing.mp4",
   "M19-A": "assets/media/wire/tech/board-lasted.jpg",
   "M19-B": "assets/media/wire/tech/strobel.jpg",
   "M19-C": "assets/media/wire/tech/waterproof-bootie.jpg",

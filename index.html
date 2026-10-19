@@ -272,32 +272,30 @@
                 <model-viewer
                   id="studio-shoe-model"
                   src="assets/studio/shoe.glb"
-                  poster="assets/media/wire/opustudio/ecom-opt-1.jpg"
+                  poster="assets/media/M14.jpg"
                   camera-controls
                   touch-action="pan-y"
                   disable-zoom
                   auto-rotate
-                  auto-rotate-delay="1400"
-                  rotation-per-second="22deg"
+                  auto-rotate-delay="1200"
+                  rotation-per-second="18deg"
                   interaction-prompt="auto"
-                  shadow-intensity="0.85"
+                  shadow-intensity="0.8"
                   exposure="1"
                   loading="lazy"
                   reveal="auto"
-                  alt="Interactive 3D footwear model">
+                  alt="Interactive footwear model">
                 </model-viewer>
-                <img id="studio-ecom-product-img" class="studio-ecom__product-img is-hidden" alt="" loading="lazy">
-                <span class="studio-ecom__hint" id="studio-ecom-hint">
+                <span class="studio-ecom__hint" id="studio-ecom-hint" hidden>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 13V8.5a2.5 2.5 0 0 1 5 0V13"/><path d="M6 13h12l-1 8H7l-1-8z"/></svg>
                   Drag to rotate
                 </span>
+                <div class="studio-ecom__variants" id="studio-model-variants" hidden></div>
               </div>
             </div>
             <div class="studio-ecom__panel stack">
               <h3>Interactive E-commerce</h3>
               <p>Interactive e-commerce visuals for online product presentation, digital catalogs, and clearer product viewing across commercial channels.</p>
-              <div class="studio-ecom__swatches" id="studio-ecom-swatches" role="listbox" aria-label="Product colorways"></div>
-              <button type="button" class="studio-ecom__view-toggle" id="studio-ecom-view-3d" hidden>View 3D model</button>
               <a class="studio-card__cta" href="#contact" data-cta="Plan E-commerce Visuals" data-support="opustudio">Plan E-commerce Visuals →</a>
             </div>
           </article>
@@ -361,10 +359,7 @@
             <p>Footwear becomes stronger when development and manufacturing are built around the same product logic. OPUS Manufacturing supports complex constructions, advanced upper applications, outsole engineering, performance materials, and production oversight so brands can move from development into production with greater confidence.</p>
           </div>
           <div class="reveal">
-            <div class="media-slot" data-media-id="M18" data-kind="video" data-ratio="16/9">
-              <span class="media-slot__id">M18 · VIDEO 15–20 s</span>
-              <span class="media-slot__desc">Manufacturing unit exterior → stitching line → lasting → finished pairs coming off the line.</span>
-            </div>
+            <div class="media-slot" data-media-id="M18" data-kind="video" data-ratio="16/9" data-alt="OPUS Manufacturing"></div>
           </div>
         </div>
       </div>
@@ -420,28 +415,6 @@
             </div>
             <p class="tech-showcase__caption" id="tech-showcase-caption">board-lasted constructions</p>
           </div>
-        </div>
-        <div class="process-hover-grid sr-stagger">
-          <article class="process-card sr-in">
-            <div class="hover-video" data-poster="assets/media/wire/tech/waterproof-bootie.jpg" data-video=""></div>
-            <span class="process-card__play" aria-hidden="true">▶</span>
-            <p class="process-card__caption">Waterproof construction</p>
-          </article>
-          <article class="process-card sr-in">
-            <div class="hover-video" data-poster="assets/media/wire/tech/hf-applications.jpg" data-video=""></div>
-            <span class="process-card__play" aria-hidden="true">▶</span>
-            <p class="process-card__caption">HF / no-sew</p>
-          </article>
-          <article class="process-card sr-in">
-            <div class="hover-video" data-poster="assets/media/wire/tech/comfort-engineering.jpg" data-video=""></div>
-            <span class="process-card__play" aria-hidden="true">▶</span>
-            <p class="process-card__caption">Stock fitting</p>
-          </article>
-          <article class="process-card sr-in">
-            <div class="hover-video" data-poster="assets/media/wire/tech/computerized-stitching.jpg" data-video=""></div>
-            <span class="process-card__play" aria-hidden="true">▶</span>
-            <p class="process-card__caption">Computerized stitching</p>
-          </article>
         </div>
       </div>
 
@@ -693,7 +666,9 @@
             <a class="btn btn--cta-white" href="#contact" data-cta="Start a Project">Start a Project <span class="btn__arrow" aria-hidden="true">→</span></a>
           </div>
           <div class="band-cta__media-frame">
-            <img class="band-cta__frame-img" src="assets/media/wire/about/about-6.jpg" alt="" loading="lazy" width="800" height="1000">
+            <div class="band-cta__media-crop">
+              <img class="band-cta__frame-img" src="assets/media/About%20OPUS%206.JPG" alt="" loading="lazy" width="800" height="1000">
+            </div>
           </div>
         </div>
       </section>

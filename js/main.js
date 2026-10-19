@@ -202,6 +202,16 @@
     update();
   }
 
+  function encodeMediaPath(path) {
+    if (!path || typeof path !== "string") return path;
+    var q = path.indexOf("?");
+    var base = q === -1 ? path : path.slice(0, q);
+    var query = q === -1 ? "" : path.slice(q);
+    var slash = base.lastIndexOf("/");
+    if (slash === -1) return encodeURIComponent(base) + query;
+    return base.slice(0, slash + 1) + encodeURIComponent(base.slice(slash + 1)) + query;
+  }
+
   function isVideoPath(value) {
     return typeof value === "string" && /\.(mp4|webm)(\?|$)/i.test(value);
   }
@@ -227,7 +237,7 @@
 
   function fillImage(slot, src) {
     var img = document.createElement("img");
-    img.src = src;
+    img.src = encodeMediaPath(src);
     img.alt = descOf(slot);
     img.loading = "lazy";
     slot.replaceChildren(img);
@@ -237,17 +247,18 @@
   function fillVideo(slot, entry) {
     var src = typeof entry === "string" ? entry : entry.src;
     var video = document.createElement("video");
-    video.src = src;
+    video.src = encodeMediaPath(src);
     video.muted = true;
     video.loop = true;
     video.playsInline = true;
     video.setAttribute("playsinline", "");
+    video.preload = "metadata";
     var poster = (entry && entry.poster) || (slot.getAttribute("data-media-id") === "M01" ? (window.MEDIA && window.MEDIA.M02) : "");
-    if (typeof poster === "string") video.poster = poster;
+    if (typeof poster === "string") video.poster = encodeMediaPath(poster);
     if (!reduceMotion) video.autoplay = true;
-    if (slot.classList.contains("media-slot--hero") || slot.closest(".hero")) {
-      video.preload = "metadata";
-    }
+    video.addEventListener("loadeddata", function () {
+      if (!reduceMotion) video.play().catch(function () {});
+    });
     slot.replaceChildren(video);
     slot.classList.add("is-filled");
   }
