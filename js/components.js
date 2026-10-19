@@ -203,7 +203,9 @@
       panelImg.onerror = function () {
         panelImg.src = "assets/media/M19-A.jpg";
       };
-      panelImg.src = src || "assets/media/M19-A.jpg";
+      var url = src || "assets/media/M19-A.jpg";
+      if (typeof window.resolveMediaUrl === "function") url = window.resolveMediaUrl(url);
+      panelImg.src = url;
       if (caption && caption.offsetParent !== null) caption.textContent = cap || "";
     };
     picks.forEach(function (pick) {
