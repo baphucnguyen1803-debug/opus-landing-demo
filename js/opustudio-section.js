@@ -4,18 +4,28 @@
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   var COLORWAYS = [
-    { id: "opt1", name: "Option 1", src: "assets/media/wire/opustudio/render-opt-1.jpg", swatch: "#e8e2d8" },
-    { id: "opt2", name: "Option 2", src: "assets/media/wire/opustudio/render-opt-2.jpg", swatch: "#6b6b6b" },
-    { id: "opt3", name: "Option 3", src: "assets/media/wire/opustudio/render-opt-3.jpg", swatch: "#b4532a" },
-    { id: "opt4", name: "Option 4", src: "assets/media/wire/opustudio/render-opt-4.jpg", swatch: "#5c6b4a" },
-    { id: "opt5", name: "Option 5", src: "assets/media/wire/opustudio/render-opt-5.jpg", swatch: "#1a1a1a" },
+    { id: "beige", name: "Nâu be", src: "assets/media/wire/opustudio/render-opt-1.jpg", swatch: "#c4a882" },
+    { id: "black", name: "Đen", src: "assets/media/wire/opustudio/render-opt-2.jpg", swatch: "#1a1a1a" },
+    { id: "gray", name: "Xám", src: "assets/media/wire/opustudio/render-opt-3.jpg", swatch: "#8a8a8a" },
+    { id: "white", name: "Trắng", src: "assets/media/wire/opustudio/render-opt-4.jpg", swatch: "#f0ece6" },
+    { id: "pink", name: "Hồng", src: "assets/media/wire/opustudio/render-opt-5.jpg", swatch: "#d4a0a8" },
   ];
 
-  var ECOMM_FRAMES = [
-    "assets/media/wire/opustudio/ecom-opt-1.jpg",
-    "assets/media/wire/opustudio/ecom-opt-2.jpg",
-    "assets/media/wire/opustudio/ecom-opt-3.jpg",
+  var ECOMM_VARIANTS = [
+    { id: "brown", name: "Nâu", src: "assets/media/wire/opustudio/ecom-opt-1.jpg", swatch: "#8b5a3c" },
+    { id: "white", name: "Trắng", src: "assets/media/wire/opustudio/ecom-opt-2.jpg", swatch: "#f2f0ec" },
+    { id: "red", name: "Đỏ", src: "assets/media/wire/opustudio/ecom-opt-3.jpg", swatch: "#b83232" },
   ];
+
+  function applySampledSwatch(btn, src, fallback) {
+    if (!window.OpusColorSample || !btn) {
+      if (window.OpusSwatch) window.OpusSwatch.apply(btn, fallback);
+      return;
+    }
+    window.OpusColorSample.sampleFromUrl(src, { x: 0.34, y: 0.4, w: 0.2, h: 0.16 }, function (color) {
+      if (window.OpusSwatch) window.OpusSwatch.apply(btn, color || fallback);
+    });
+  }
 
   function initRenderCard() {
     var card = document.getElementById("studio-render-card");
@@ -53,6 +63,7 @@
         btn.style.background = cw.swatch;
         btn.setAttribute("role", "option");
       }
+      applySampledSwatch(btn, cw.src, cw.swatch);
       btn.addEventListener("click", function () {
         userTouched = true;
         if (cycleTimer) clearInterval(cycleTimer);
@@ -103,71 +114,82 @@
     img.src = "assets/media/wire/opustudio/digital-asset.jpg";
   }
 
-  function initEcomSpin() {
-    var wrap = document.getElementById("studio-ecom-viewer");
-    var img = document.getElementById("studio-ecom-spin-img");
+  function initEcomViewer() {
+    var mv = document.getElementById("studio-shoe-model");
+    var productImg = document.getElementById("studio-ecom-product-img");
     var hint = document.getElementById("studio-ecom-hint");
-    var dots = document.getElementById("studio-ecom-dots");
-    if (!wrap || !img) return;
+    var swatches = document.getElementById("studio-ecom-swatches");
+    var view3dBtn = document.getElementById("studio-ecom-view-3d");
+    if (!mv || !swatches) return;
 
-    var frame = 0;
-    var down = false;
-    var lastX = 0;
+    var mode = "3d";
+    var variantIdx = 0;
 
-    function setFrame(i) {
-      frame = (i + ECOMM_FRAMES.length) % ECOMM_FRAMES.length;
-      img.src = ECOMM_FRAMES[frame];
-      if (dots) {
-        dots.querySelectorAll("button").forEach(function (btn, j) {
-          btn.classList.toggle("is-active", j === frame);
-        });
-      }
-    }
-
-    setFrame(0);
-    ECOMM_FRAMES.forEach(function (_, i) {
-      var im = new Image();
-      im.src = ECOMM_FRAMES[i];
-    });
-
-    if (dots) {
-      ECOMM_FRAMES.forEach(function (_, i) {
-        var btn = document.createElement("button");
-        btn.type = "button";
-        btn.setAttribute("aria-label", "View angle " + (i + 1));
-        btn.addEventListener("click", function () { setFrame(i); });
-        dots.appendChild(btn);
-      });
-    }
-
-    var showHint = function () {
+    function showHint() {
       if (!hint || reduceMotion) return;
       hint.hidden = false;
       hint.classList.remove("is-hidden");
-    };
-    showHint();
+    }
 
-    wrap.addEventListener("pointerdown", function (e) {
-      down = true;
-      lastX = e.clientX;
-      wrap.setPointerCapture(e.pointerId);
+    function setMode(next) {
+      mode = next;
+      var is3d = mode === "3d";
+      mv.classList.toggle("is-hidden", !is3d);
+      if (productImg) productImg.classList.toggle("is-hidden", is3d);
+      if (view3dBtn) view3dBtn.hidden = is3d;
+      if (hint) {
+        hint.innerHTML = is3d
+          ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 13V8.5a2.5 2.5 0 0 1 5 0V13"/><path d="M6 13h12l-1 8H7l-1-8z"/></svg> Drag to rotate'
+          : "Product view";
+      }
+    }
+
+    function setVariant(i) {
+      variantIdx = i;
+      var v = ECOMM_VARIANTS[i];
+      if (productImg) productImg.src = v.src;
+      mv.setAttribute("poster", v.src);
+      swatches.querySelectorAll("button").forEach(function (btn, j) {
+        btn.classList.toggle("is-selected", j === i);
+      });
+      setMode("photo");
+    }
+
+    ECOMM_VARIANTS.forEach(function (v, i) {
+      var btn = window.OpusSwatch
+        ? window.OpusSwatch.createButton({ label: v.name, color: v.swatch, role: "option" })
+        : document.createElement("button");
+      if (!window.OpusSwatch) {
+        btn.type = "button";
+        btn.title = v.name;
+        btn.setAttribute("aria-label", v.name);
+        btn.style.background = v.swatch;
+      }
+      applySampledSwatch(btn, v.src, v.swatch);
+      btn.addEventListener("click", function () { setVariant(i); });
+      swatches.appendChild(btn);
+    });
+
+    if (view3dBtn) {
+      view3dBtn.addEventListener("click", function () { setMode("3d"); });
+    }
+
+    mv.addEventListener("load", showHint);
+    mv.addEventListener("camera-change", function () {
       if (hint) hint.classList.add("is-hidden");
+    }, { once: true });
+
+    setMode("3d");
+    ECOMM_VARIANTS.forEach(function (v) {
+      var im = new Image();
+      im.src = v.src;
     });
-    wrap.addEventListener("pointermove", function (e) {
-      if (!down) return;
-      var dx = e.clientX - lastX;
-      if (Math.abs(dx) < 12) return;
-      lastX = e.clientX;
-      setFrame(frame + (dx > 0 ? 1 : -1));
-    });
-    wrap.addEventListener("pointerup", function () { down = false; });
-    wrap.addEventListener("pointercancel", function () { down = false; });
   }
 
   function boot() {
     initRenderCard();
     initDigitalAssetVisual();
-    initEcomSpin();
+    initEcomViewer();
     window.dispatchEvent(new CustomEvent("opus:studio-mounted"));
   }
 

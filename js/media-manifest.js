@@ -20,7 +20,7 @@ window.MEDIA = {
   "M12-C": "assets/media/wire/opustudio/render-opt-3.jpg",
   "M12-D": "assets/media/wire/opustudio/render-opt-4.jpg",
   "M12-E": "assets/media/wire/opustudio/render-opt-5.jpg",
-  M13: "assets/media/wire/opustudio/animation.mp4",
+  M13: "assets/media/video-2-giay-showcase.mp4",
   M14: "assets/media/wire/opustudio/digital-asset.jpg",
   "M15-A": "assets/media/wire/opustudio/ecom-opt-1.jpg",
   "M15-B": "assets/media/wire/opustudio/ecom-opt-2.jpg",

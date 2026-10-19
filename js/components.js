@@ -202,7 +202,7 @@
         panelImg.src = "assets/media/M19-A.jpg";
       };
       panelImg.src = src || "assets/media/M19-A.jpg";
-      if (caption) caption.textContent = cap || "";
+      if (caption && caption.offsetParent !== null) caption.textContent = cap || "";
     };
     picks.forEach(function (pick) {
       pick.addEventListener("mouseenter", function () { show(pick); });

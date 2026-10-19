@@ -16,7 +16,6 @@
 .place-card,
 .tile,
 .cat-card,
-.service-card,
 .stage-card,
 .bento-card,
 .step-card {
@@ -168,20 +167,28 @@
   scroll-margin-top: 96px;
 }
 
-.service-card {
+.service-card-grid .service-card {
   display: grid;
-  grid-template-columns: 38% 1fr;
+  grid-template-columns: minmax(0, 38%) minmax(0, 1fr);
   gap: 0;
   min-height: 320px;
+  height: auto;
   background: #fff;
   border-radius: 20px;
   overflow: hidden;
   transition: transform 300ms ease, box-shadow 300ms ease;
 }
 
-.service-card--featured {
+.service-card-grid .service-card__body {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  background: #fff;
+}
+
+.service-card-grid .service-card--featured {
   grid-column: 1 / -1;
-  grid-template-columns: 7fr 5fr;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
   min-height: 380px;
 }
 
@@ -774,7 +781,12 @@
   background: #e8e4dc;
 }
 
-.tech-showcase__caption {
+.tech-showcase__caption,
+.process-card__caption {
+  display: none !important;
+}
+
+.tech-showcase__caption--legacy {
   margin-top: 12px;
   font-size: 14px;
   color: var(--color-muted);
@@ -919,7 +931,7 @@
 }
 
 .cat-card:hover .cat-card__media img {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 
 .cat-card:hover {

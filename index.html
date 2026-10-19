@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="css/globe-pass.css">
   <link rel="stylesheet" href="css/pillar-pass.css">
   <link rel="stylesheet" href="css/media-layout-pass.css">
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 </head>
 <body>
   <header class="site-header" id="site-header">
@@ -268,17 +269,35 @@
           <article class="studio-card studio-card--ecom sr-in">
             <div class="studio-ecom__viewer-wrap">
               <div class="studio-ecom__viewer" id="studio-ecom-viewer">
-                <img id="studio-ecom-spin-img" class="studio-ecom__spin-img" src="assets/media/wire/opustudio/ecom-opt-1.jpg" alt="Interactive footwear product views">
+                <model-viewer
+                  id="studio-shoe-model"
+                  src="assets/studio/shoe.glb"
+                  poster="assets/media/wire/opustudio/ecom-opt-1.jpg"
+                  camera-controls
+                  touch-action="pan-y"
+                  disable-zoom
+                  auto-rotate
+                  auto-rotate-delay="1400"
+                  rotation-per-second="22deg"
+                  interaction-prompt="auto"
+                  shadow-intensity="0.85"
+                  exposure="1"
+                  loading="lazy"
+                  reveal="auto"
+                  alt="Interactive 3D footwear model">
+                </model-viewer>
+                <img id="studio-ecom-product-img" class="studio-ecom__product-img is-hidden" alt="" loading="lazy">
                 <span class="studio-ecom__hint" id="studio-ecom-hint">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 13V8.5a2.5 2.5 0 0 1 5 0V13"/><path d="M6 13h12l-1 8H7l-1-8z"/></svg>
                   Drag to rotate
                 </span>
-                <div class="studio-ecom__dots" id="studio-ecom-dots" aria-label="Product angles"></div>
               </div>
             </div>
             <div class="studio-ecom__panel stack">
               <h3>Interactive E-commerce</h3>
               <p>Interactive e-commerce visuals for online product presentation, digital catalogs, and clearer product viewing across commercial channels.</p>
+              <div class="studio-ecom__swatches" id="studio-ecom-swatches" role="listbox" aria-label="Product colorways"></div>
+              <button type="button" class="studio-ecom__view-toggle" id="studio-ecom-view-3d" hidden>View 3D model</button>
               <a class="studio-card__cta" href="#contact" data-cta="Plan E-commerce Visuals" data-support="opustudio">Plan E-commerce Visuals →</a>
             </div>
           </article>
@@ -330,13 +349,6 @@
         </div>
       </div>
 
-      <div class="overlay-band overlay-band--studio">
-        <div class="media-slot media-slot--bleed media-slot--band" data-media-id="M13" data-kind="video" data-ratio="16/9" data-alt="Footwear showcase animation for OPUStudio"></div>
-        <div class="overlay-band__copy stack">
-          <p>That is where OPUStudio creates value: not only in the final image, but in the asset system behind it.</p>
-          <a class="btn btn--primary" href="#contact" data-cta="Talk to OPUStudio" data-support="opustudio">Talk to OPUStudio</a>
-        </div>
-      </div>
     </section>
 
     <section class="section section--light" id="manufacturing">
@@ -858,6 +870,7 @@
   <script src="js/components.js"></script>
   <script src="js/autoplay-video.js"></script>
   <script src="js/swatch-utils.js"></script>
+  <script src="js/color-sample.js"></script>
   <script src="js/lab-compare.js"></script>
   <script src="js/opustudio-section.js"></script>
   <script type="module" src="assets/vendor/map-presence.bundle.mjs"></script>
