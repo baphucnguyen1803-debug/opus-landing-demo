@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="css/globe-pass.css">
   <link rel="stylesheet" href="css/pillar-pass.css">
   <link rel="stylesheet" href="css/media-layout-pass.css">
+  <link rel="preload" as="image" href="assets/media/M02.jpg" fetchpriority="high">
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 </head>
 <body>
@@ -87,7 +88,7 @@
         </div>
         <div class="pillar-grid">
           <article class="pillar-card reveal" tabindex="0">
-            <div class="autoplay-video pillar-card__media" data-mp4="assets/pillars/lab.mp4" data-webm="assets/pillars/lab.webm" data-poster="assets/pillars/lab-poster.jpg" data-fallback-image="assets/media/M03.jpg" aria-hidden="true"></div>
+            <div class="autoplay-video pillar-card__media" data-mp4="assets/pillars/lab.mp4" data-poster="assets/pillars/lab-poster.jpg" data-fallback-image="assets/media/M03.jpg" aria-hidden="true"></div>
             <div class="pillar-card__body stack">
               <h3>OPUSlab</h3>
               <p>OPUSlab creates and develops footwear through design, advanced 3D, technical engineering, prototyping, and manufacturing preparation.</p>
@@ -95,7 +96,7 @@
             </div>
           </article>
           <article class="pillar-card reveal" tabindex="0">
-            <div class="autoplay-video pillar-card__media" data-mp4="assets/pillars/studio.mp4" data-webm="assets/pillars/studio.webm" data-poster="assets/pillars/studio-poster.jpg" data-fallback-image="assets/media/M04.jpg" aria-hidden="true"></div>
+            <div class="autoplay-video pillar-card__media" data-mp4="assets/pillars/studio.mp4" data-poster="assets/pillars/studio-poster.jpg" data-fallback-image="assets/media/M04.jpg" aria-hidden="true"></div>
             <div class="pillar-card__body stack">
               <h3>OPUStudio</h3>
               <p>OPUStudio turns footwear into photorealistic renders, animation, videos, interactive e-commerce visuals, sales tools, and launch content.</p>
@@ -103,7 +104,7 @@
             </div>
           </article>
           <article class="pillar-card reveal" tabindex="0">
-            <div class="autoplay-video pillar-card__media" data-mp4="assets/pillars/manufacturing.mp4" data-webm="assets/pillars/manufacturing.webm" data-poster="assets/pillars/manufacturing-poster.jpg" data-fallback-image="assets/media/M05.jpg" aria-hidden="true"></div>
+            <div class="autoplay-video pillar-card__media" data-mp4="assets/pillars/manufacturing.mp4" data-poster="assets/pillars/manufacturing-poster.jpg" data-fallback-image="assets/media/M05.jpg" aria-hidden="true"></div>
             <div class="pillar-card__body stack">
               <h3>OPUS Manufacturing</h3>
               <p>OPUS Manufacturing operates Vietnam-based production shaped by category, construction, technical requirements, quality control, and production capabilities.</p>
@@ -859,6 +860,7 @@
 
   <script src="js/site-config.js"></script>
   <script src="js/media-url.js"></script>
+  <script src="js/video-playback.js"></script>
   <script src="js/media-manifest.js"></script>
   <script src="js/main.js"></script>
   <script src="js/components.js"></script>

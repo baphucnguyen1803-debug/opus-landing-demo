@@ -1,7 +1,8 @@
 /* Media manifest — client assets via assets/media/wire/ symlinks */
 window.MEDIA = {
   M01: {
-    src: "assets/media/video-1-lap-ghep-giay.mp4",
+    desktop: "assets/media/video-1-lap-ghep-giay.mp4",
+    mobile: "assets/media/video-1-lap-ghep-giay.mp4",
     poster: "assets/media/M02.jpg",
   },
   M02: "assets/media/M02.jpg",

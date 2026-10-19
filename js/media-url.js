@@ -1,4 +1,4 @@
-/* GitHub Pages serves Git LFS files as pointer text; route videos through media.githubusercontent.com on *.github.io */
+/* Same-origin media paths with safe encoding for spaces/special chars */
 (function (global) {
   "use strict";
 
@@ -12,41 +12,9 @@
     return base.slice(0, slash + 1) + encodeURIComponent(base.slice(slash + 1)) + query;
   }
 
-  function githubMediaCdnBase() {
-    var cfg = global.SITE_CONFIG || {};
-    if (cfg.mediaGitHubCdn === false) return "";
-    if (cfg.mediaGitHubCdnBase) return cfg.mediaGitHubCdnBase;
-    var loc = global.location;
-    if (!loc || !loc.hostname.endsWith("github.io")) return "";
-    var segs = (loc.pathname || "/").split("/").filter(Boolean);
-    if (!segs.length) return "";
-    var repo = segs[0];
-    var owner = cfg.githubOwner || "baphucnguyen1803-debug";
-    var branch = cfg.githubBranch || "main";
-    return (
-      "https://media.githubusercontent.com/media/" +
-      owner +
-      "/" +
-      repo +
-      "/" +
-      branch +
-      "/"
-    );
-  }
-
-  function isVideoPath(value) {
-    return typeof value === "string" && /\.(mp4|webm|MP4)(\?|$)/i.test(value);
-  }
-
   function resolveMediaUrl(path) {
     if (!path || /^https?:\/\//i.test(path)) return path;
-    var encoded = encodePathSegments(path);
-    var loc = global.location;
-    /* GitHub Actions deploy serves real MP4 binaries; same-origin is faster and more reliable than LFS CDN. */
-    if (loc && loc.hostname.endsWith("github.io")) return encoded;
-    var cdn = githubMediaCdnBase();
-    if (cdn && isVideoPath(path)) return cdn + encoded;
-    return encoded;
+    return encodePathSegments(path);
   }
 
   global.resolveMediaUrl = resolveMediaUrl;

@@ -226,7 +226,11 @@
       var id = slot.getAttribute("data-media-id");
       var entry = catalog[id];
       if (entry == null) return;
-      if ((typeof entry === "string" && isVideoPath(entry)) || (entry && entry.src && isVideoPath(entry.src))) {
+      if (
+        (typeof entry === "string" && isVideoPath(entry)) ||
+        (entry && entry.src && isVideoPath(entry.src)) ||
+        (entry && entry.desktop && isVideoPath(entry.desktop))
+      ) {
         fillVideo(slot, entry);
       } else if (isImagePath(entry)) {
         fillImage(slot, entry);
@@ -245,22 +249,33 @@
     slot.classList.add("is-filled");
   }
 
+  function normalizeVideoEntry(entry, mediaId) {
+    if (typeof entry === "string") {
+      return { desktop: entry, mobile: entry, poster: "" };
+    }
+    if (entry && entry.desktop) return entry;
+    if (entry && entry.src) {
+      return {
+        desktop: entry.src,
+        mobile: entry.mobile || entry.src,
+        poster: entry.poster || "",
+      };
+    }
+    if (mediaId === "M01" && window.MEDIA && window.MEDIA.M02) {
+      return Object.assign({}, entry || {}, { poster: entry && entry.poster ? entry.poster : window.MEDIA.M02 });
+    }
+    return entry;
+  }
+
   function fillVideo(slot, entry) {
-    var src = typeof entry === "string" ? entry : entry.src;
-    var video = document.createElement("video");
     var mediaId = slot.getAttribute("data-media-id");
-    var url = encodeMediaPath(src);
-    video.src = url;
-    video.muted = true;
-    video.loop = true;
-    video.playsInline = true;
-    video.setAttribute("playsinline", "");
-    video.preload = "metadata";
-    video.setAttribute("webkit-playsinline", "");
-    var poster = (entry && entry.poster) || (mediaId === "M01" ? (window.MEDIA && window.MEDIA.M02) : "");
-    if (typeof poster === "string") video.poster = encodeMediaPath(poster);
-    slot.replaceChildren(video);
-    slot.classList.add("is-filled");
+    var norm = normalizeVideoEntry(entry, mediaId);
+    if (window.OpusVideo && window.OpusVideo.mountInSlot) {
+      window.OpusVideo.mountInSlot(slot, norm, {
+        hero: slot.classList.contains("media-slot--hero") || mediaId === "M01",
+      });
+      return;
+    }
   }
 
   function fillSequence(slot, entry) {
@@ -340,39 +355,10 @@
     if (active) setLabel(active);
   }
 
-  function bindMediaSlotVideo(slot) {
-    if (!slot || slot.getAttribute("data-video-bound")) return;
-    var video = slot.querySelector("video");
-    if (!video) return;
-    slot.setAttribute("data-video-bound", "1");
-    if (!("IntersectionObserver" in window)) {
-      if (!reduceMotion) video.play().catch(function () {});
-      return;
-    }
-    var playWhenReady = function () {
-      if (!reduceMotion) video.play().catch(function () {});
-    };
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (reduceMotion) {
-          video.pause();
-          return;
-        }
-        if (entry.isIntersecting) {
-          slot.classList.add("is-in-view");
-          if (video.readyState >= 2) playWhenReady();
-          else video.addEventListener("loadeddata", playWhenReady, { once: true });
-        } else {
-          slot.classList.remove("is-in-view");
-          video.pause();
-        }
-      });
-    }, { threshold: 0.12, rootMargin: "120px 0px" });
-    observer.observe(slot);
-  }
-
   function initVideoLifecycle() {
-    document.querySelectorAll(".media-slot").forEach(bindMediaSlotVideo);
+    if (window.OpusVideo && window.OpusVideo.bootAutoplayVideos) {
+      window.OpusVideo.bootAutoplayVideos();
+    }
   }
 
   function initStats() {
@@ -787,12 +773,12 @@
   initActiveNav();
   initMobileMenu();
   hydrateMedia();
-  window.addEventListener("opus:studio-mounted", function () {
+  window.addEventListener("opus:studio-mounted", hydrateMedia);
+  initVideoLifecycle();
+  window.addEventListener("opus:media-hydrated", function () {
     hydrateMedia();
     initVideoLifecycle();
   });
-  initVideoLifecycle();
-  window.addEventListener("opus:media-hydrated", initVideoLifecycle);
   initColorway();
   initFileUpload();
   initStats();
