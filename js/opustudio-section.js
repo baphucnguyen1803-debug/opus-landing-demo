@@ -4,11 +4,11 @@
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   var COLORWAYS = [
-    { id: "beige", name: "Nâu be", src: "assets/media/wire/opustudio/render-opt-1.jpg", swatch: "#c4a882" },
-    { id: "black", name: "Đen", src: "assets/media/wire/opustudio/render-opt-2.jpg", swatch: "#1a1a1a" },
-    { id: "gray", name: "Xám", src: "assets/media/wire/opustudio/render-opt-3.jpg", swatch: "#8a8a8a" },
-    { id: "white", name: "Trắng", src: "assets/media/wire/opustudio/render-opt-4.jpg", swatch: "#f0ece6" },
-    { id: "pink", name: "Hồng", src: "assets/media/wire/opustudio/render-opt-5.jpg", swatch: "#d4a0a8" },
+    { id: "beige", name: "Beige", src: "assets/media/wire/opustudio/render-opt-1.jpg", swatch: "#c4a882" },
+    { id: "black", name: "Black", src: "assets/media/wire/opustudio/render-opt-2.jpg", swatch: "#1a1a1a" },
+    { id: "gray", name: "Gray", src: "assets/media/wire/opustudio/render-opt-3.jpg", swatch: "#8a8a8a" },
+    { id: "white", name: "White", src: "assets/media/wire/opustudio/render-opt-4.jpg", swatch: "#f0ece6" },
+    { id: "pink", name: "Pink", src: "assets/media/wire/opustudio/render-opt-5.jpg", swatch: "#d4a0a8" },
   ];
 
   function applySampledSwatch(btn, src, fallback) {
