@@ -1,6 +1,8 @@
 /* CRM + post-submit behaviour — paste your Google Form response URL and entry IDs when ready.
    How to get entry IDs: open the live form → View page source → search for "entry." */
 window.SITE_CONFIG = {
+  githubOwner: "baphucnguyen1803-debug",
+  githubBranch: "main",
   googleFormAction: "",
   googleFormFields: {
     full_name: "",

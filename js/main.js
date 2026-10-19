@@ -203,6 +203,7 @@
   }
 
   function encodeMediaPath(path) {
+    if (typeof window.resolveMediaUrl === "function") return window.resolveMediaUrl(path);
     if (!path || typeof path !== "string") return path;
     var q = path.indexOf("?");
     var base = q === -1 ? path : path.slice(0, q);

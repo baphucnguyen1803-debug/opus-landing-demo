@@ -5,6 +5,11 @@
   var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
   var CARD_THRESHOLD = 0.3;
 
+  function mediaUrl(path) {
+    if (typeof window.resolveMediaUrl === "function") return window.resolveMediaUrl(path);
+    return path;
+  }
+
   function initRoot(root) {
     if (root.getAttribute("data-av-init")) return;
     root.setAttribute("data-av-init", "1");
@@ -79,13 +84,15 @@
         .catch(function () { next(false); });
     }
 
-    assetOk(mp4, function (okMp4) {
+    var mp4Url = mediaUrl(mp4);
+    var webmUrl = mediaUrl(webm);
+    assetOk(mp4Url, function (okMp4) {
       if (okMp4) {
-        buildVideo(mp4, webm);
+        buildVideo(mp4Url, webmUrl);
         return;
       }
-      assetOk(webm, function (okWebm) {
-        if (okWebm) buildVideo(null, webm);
+      assetOk(webmUrl, function (okWebm) {
+        if (okWebm) buildVideo(null, webmUrl);
         else showFallback();
       });
     });

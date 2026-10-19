@@ -50,7 +50,9 @@
       video.playsInline = true;
       video.setAttribute("playsinline", "");
       video.preload = "none";
-      if (src) video.src = src;
+      if (src) {
+        video.src = typeof window.resolveMediaUrl === "function" ? window.resolveMediaUrl(src) : src;
+      }
       root.appendChild(img);
       root.appendChild(video);
       if (reduceMotion || !finePointer) return;
