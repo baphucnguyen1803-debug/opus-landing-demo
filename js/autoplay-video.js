@@ -103,7 +103,9 @@
       video.playsInline = true;
       video.setAttribute("playsinline", "");
       video.preload = "none";
-      if (poster) video.poster = poster;
+      if (poster) {
+        video.poster = typeof window.resolveMediaUrl === "function" ? window.resolveMediaUrl(poster) : poster;
+      }
       if (srcWebm) {
         var sW = document.createElement("source");
         sW.src = srcWebm;

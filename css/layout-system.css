@@ -599,11 +599,16 @@ h3,
   overflow: hidden;
 }
 
-.place-card .media-slot.is-filled img {
+.place-card .media-slot.is-filled img,
+.place-card .media-slot.is-filled video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   transition: transform 400ms ease;
 }
 
-.place-card:hover .media-slot.is-filled img {
+.place-card:hover .media-slot.is-filled img,
+.place-card:hover .media-slot.is-filled video {
   transform: scale(1.03);
 }
 

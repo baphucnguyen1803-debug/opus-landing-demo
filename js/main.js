@@ -245,35 +245,20 @@
     slot.classList.add("is-filled");
   }
 
-  function attachLazyVideoSource(video) {
-    var url = video.getAttribute("data-src");
-    if (!url || video.getAttribute("src")) return;
-    video.src = url;
-    video.load();
-  }
-
   function fillVideo(slot, entry) {
     var src = typeof entry === "string" ? entry : entry.src;
     var video = document.createElement("video");
     var mediaId = slot.getAttribute("data-media-id");
-    var eager = mediaId === "M01";
-    video.setAttribute("data-src", encodeMediaPath(src));
+    var url = encodeMediaPath(src);
+    video.src = url;
     video.muted = true;
     video.loop = true;
     video.playsInline = true;
     video.setAttribute("playsinline", "");
-    video.preload = "none";
+    video.preload = "metadata";
+    video.setAttribute("webkit-playsinline", "");
     var poster = (entry && entry.poster) || (mediaId === "M01" ? (window.MEDIA && window.MEDIA.M02) : "");
     if (typeof poster === "string") video.poster = encodeMediaPath(poster);
-    if (!reduceMotion && eager) {
-      video.autoplay = true;
-      attachLazyVideoSource(video);
-    }
-    video.addEventListener("loadeddata", function () {
-      if (!reduceMotion && (eager || slot.classList.contains("is-in-view"))) {
-        video.play().catch(function () {});
-      }
-    });
     slot.replaceChildren(video);
     slot.classList.add("is-filled");
   }
@@ -355,32 +340,39 @@
     if (active) setLabel(active);
   }
 
+  function bindMediaSlotVideo(slot) {
+    if (!slot || slot.getAttribute("data-video-bound")) return;
+    var video = slot.querySelector("video");
+    if (!video) return;
+    slot.setAttribute("data-video-bound", "1");
+    if (!("IntersectionObserver" in window)) {
+      if (!reduceMotion) video.play().catch(function () {});
+      return;
+    }
+    var playWhenReady = function () {
+      if (!reduceMotion) video.play().catch(function () {});
+    };
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (reduceMotion) {
+          video.pause();
+          return;
+        }
+        if (entry.isIntersecting) {
+          slot.classList.add("is-in-view");
+          if (video.readyState >= 2) playWhenReady();
+          else video.addEventListener("loadeddata", playWhenReady, { once: true });
+        } else {
+          slot.classList.remove("is-in-view");
+          video.pause();
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "120px 0px" });
+    observer.observe(slot);
+  }
+
   function initVideoLifecycle() {
-    if (!("IntersectionObserver" in window)) return;
-    document.querySelectorAll(".media-slot video").forEach(function (video) {
-      var slot = video.closest(".media-slot");
-      var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (reduceMotion) {
-            video.pause();
-            return;
-          }
-          if (entry.isIntersecting) {
-            if (slot) slot.classList.add("is-in-view");
-            attachLazyVideoSource(video);
-            var playWhenReady = function () {
-              video.play().catch(function () {});
-            };
-            if (video.readyState >= 2) playWhenReady();
-            else video.addEventListener("loadeddata", playWhenReady, { once: true });
-          } else {
-            if (slot) slot.classList.remove("is-in-view");
-            video.pause();
-          }
-        });
-      }, { threshold: 0.15, rootMargin: "80px 0px" });
-      observer.observe(video);
-    });
+    document.querySelectorAll(".media-slot").forEach(bindMediaSlotVideo);
   }
 
   function initStats() {
@@ -795,8 +787,12 @@
   initActiveNav();
   initMobileMenu();
   hydrateMedia();
-  window.addEventListener("opus:studio-mounted", hydrateMedia);
+  window.addEventListener("opus:studio-mounted", function () {
+    hydrateMedia();
+    initVideoLifecycle();
+  });
   initVideoLifecycle();
+  window.addEventListener("opus:media-hydrated", initVideoLifecycle);
   initColorway();
   initFileUpload();
   initStats();
