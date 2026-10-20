@@ -226,6 +226,7 @@
       var id = slot.getAttribute("data-media-id");
       var entry = catalog[id];
       if (entry == null) return;
+      if (slot.classList.contains("is-filled")) return; // never re-create an existing video
       if (
         (typeof entry === "string" && isVideoPath(entry)) ||
         (entry && entry.src && isVideoPath(entry.src)) ||
@@ -249,33 +250,25 @@
     slot.classList.add("is-filled");
   }
 
-  function normalizeVideoEntry(entry, mediaId) {
-    if (typeof entry === "string") {
-      return { desktop: entry, mobile: entry, poster: "" };
-    }
-    if (entry && entry.desktop) return entry;
-    if (entry && entry.src) {
-      return {
-        desktop: entry.src,
-        mobile: entry.mobile || entry.src,
-        poster: entry.poster || "",
-      };
-    }
-    if (mediaId === "M01" && window.MEDIA && window.MEDIA.M02) {
-      return Object.assign({}, entry || {}, { poster: entry && entry.poster ? entry.poster : window.MEDIA.M02 });
-    }
-    return entry;
-  }
-
   function fillVideo(slot, entry) {
+    var src =
+      typeof entry === "string"
+        ? entry
+        : entry.desktop || entry.src || entry.mobile;
+    var video = document.createElement("video");
     var mediaId = slot.getAttribute("data-media-id");
-    var norm = normalizeVideoEntry(entry, mediaId);
-    if (window.OpusVideo && window.OpusVideo.mountInSlot) {
-      window.OpusVideo.mountInSlot(slot, norm, {
-        hero: slot.classList.contains("media-slot--hero") || mediaId === "M01",
-      });
-      return;
-    }
+    var url = encodeMediaPath(src);
+    video.src = url;
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.setAttribute("playsinline", "");
+    video.preload = "metadata";
+    video.setAttribute("webkit-playsinline", "");
+    var poster = (entry && entry.poster) || (mediaId === "M01" ? (window.MEDIA && window.MEDIA.M02) : "");
+    if (typeof poster === "string") video.poster = encodeMediaPath(poster);
+    slot.replaceChildren(video);
+    slot.classList.add("is-filled");
   }
 
   function fillSequence(slot, entry) {
@@ -355,10 +348,38 @@
     if (active) setLabel(active);
   }
 
-  function initVideoLifecycle() {
-    if (window.OpusVideo && window.OpusVideo.bootAutoplayVideos) {
-      window.OpusVideo.bootAutoplayVideos();
+  function bindMediaSlotVideo(slot) {
+    if (!slot) return;
+    var video = slot.querySelector("video");
+    if (!video || video.dataset.bound) return; // bind per <video>, not per slot
+    video.dataset.bound = "1";
+    if (!("IntersectionObserver" in window)) {
+      if (!reduceMotion) video.play().catch(function () {});
+      return;
     }
+    var playWhenReady = function () {
+      if (!reduceMotion) video.play().catch(function () {});
+    };
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (reduceMotion) {
+          video.pause();
+          return;
+        }
+        if (entry.isIntersecting) {
+          slot.classList.add("is-in-view");
+          playWhenReady(); // play() itself triggers loading (Safari never fires loadeddata with preload=metadata)
+        } else {
+          slot.classList.remove("is-in-view");
+          video.pause();
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "120px 0px" });
+    observer.observe(slot);
+  }
+
+  function initVideoLifecycle() {
+    document.querySelectorAll(".media-slot").forEach(bindMediaSlotVideo);
   }
 
   function initStats() {
