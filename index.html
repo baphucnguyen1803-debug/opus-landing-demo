@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="css/globe-pass.css">
   <link rel="stylesheet" href="css/pillar-pass.css">
   <link rel="stylesheet" href="css/media-layout-pass.css">
+  <link rel="stylesheet" href="css/tech-showcase-pass.css">
   <link rel="stylesheet" href="css/stats-band-pass.css">
   <link rel="preload" as="image" href="assets/media/M02.jpg" fetchpriority="high">
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
@@ -433,30 +434,22 @@
           <p class="grid-span-full" style="max-width:65ch;margin-bottom:24px">These applications are not presented as innovation for its own sake. They matter when they improve product structure, comfort, durability, finish, performance, manufacturing consistency, or commercial execution.</p>
           <p class="grid-span-full" style="max-width:65ch;margin-bottom:56px">Specializing in heat-welding, ultrasonic bonding, and multi-component outsole integration. We bring technical expertise to complex designs that require precision beyond traditional stitching.</p>
         </div>
-        <div class="tech-showcase sr-in">
-          <div class="tech-showcase__lists">
-            <h4 class="tech-group__title">Constructions</h4>
-            <button type="button" class="tech-pick is-active" data-media="assets/media/wire/tech/board-lasted.jpg" data-caption="board-lasted constructions">board-lasted constructions</button>
-            <button type="button" class="tech-pick" data-media="assets/media/Strapol.jpg" data-caption="strobel constructions">strobel constructions</button>
-            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/waterproof-bootie.jpg" data-caption="waterproof bootie systems">waterproof bootie systems</button>
-            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/sacchetto.jpg" data-caption="sacchetto constructions">sacchetto constructions</button>
-            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/vulcanized.jpg" data-caption="vulcanized constructions">vulcanized constructions</button>
-            <h4 class="tech-group__title">Materials &amp; uppers</h4>
-            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/engineered-mesh.jpg" data-caption="engineered mesh uppers">engineered mesh uppers</button>
-            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/knitted-uppers.jpg" data-caption="knitted uppers">knitted uppers</button>
-            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/mixed-material.jpg" data-caption="mixed-material upper developments">mixed-material upper developments</button>
-            <h4 class="tech-group__title">Processes</h4>
-            <button type="button" class="tech-pick" data-media="assets/media/HF Application.JPG" data-caption="HF applications">HF applications</button>
-            <button type="button" class="tech-pick" data-media="assets/media/No-sew.jpg" data-caption="no-sew techniques">no-sew techniques</button>
-            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/computerized-stitching.jpg" data-caption="computerized stitching">computerized stitching</button>
-            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/comfort-engineering.jpg" data-caption="comfort engineering">comfort engineering</button>
-            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/automated-operations.jpg" data-caption="selected automated operations">selected automated operations</button>
-          </div>
+        <div class="tech-showcase sr-in" id="tech-showcase">
           <div class="tech-showcase__panel">
-            <div class="tech-showcase__media">
-              <img id="tech-showcase-img" src="assets/media/wire/tech/board-lasted.jpg" alt="" style="width:100%;height:100%;object-fit:cover;transition:opacity 300ms ease">
+            <div class="tech-showcase__media" id="tech-showcase-media">
+              <div class="tech-showcase__shimmer" aria-hidden="true"></div>
+              <img class="tech-showcase__img" id="tech-showcase-img" alt="" />
+              <div class="tech-showcase__video-slot" id="tech-showcase-video-slot" hidden></div>
+              <div class="tech-showcase__overlay">
+                <p class="tech-showcase__counter" id="tech-showcase-counter">01 / 13</p>
+                <p class="tech-showcase__item-title" id="tech-showcase-item-title">board-lasted constructions</p>
+                <p class="tech-showcase__context" id="tech-showcase-context"></p>
+              </div>
             </div>
-            <p class="tech-showcase__caption" id="tech-showcase-caption">board-lasted constructions</p>
+          </div>
+          <div class="tech-showcase__aside">
+            <div class="tech-showcase__list-host" id="tech-showcase-list-host" role="presentation"></div>
+            <div class="tech-showcase__chips-host" id="tech-showcase-chips-host"></div>
           </div>
         </div>
       </div>
@@ -886,6 +879,7 @@
   <script src="js/media-url.js"></script>
   <script src="js/video-playback.js"></script>
   <script src="js/media-manifest.js"></script>
+  <script src="js/tech-showcase-data.js"></script>
   <script src="js/main.js"></script>
   <script src="js/components.js"></script>
   <script src="js/autoplay-video.js"></script>

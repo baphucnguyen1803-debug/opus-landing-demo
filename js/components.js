@@ -188,31 +188,237 @@
   }
 
   function initTechShowcase() {
+    var items = window.TECH_SHOWCASE_ITEMS;
+    var root = document.getElementById("tech-showcase");
+    var mediaWrap = document.getElementById("tech-showcase-media");
     var panelImg = document.getElementById("tech-showcase-img");
-    var caption = document.getElementById("tech-showcase-caption");
-    var picks = document.querySelectorAll(".tech-pick");
-    if (!panelImg || !picks.length) return;
-    var show = function (item) {
-      picks.forEach(function (p) {
-        p.classList.toggle("is-active", p === item);
-      });
-      var src = item.getAttribute("data-media");
-      var cap = item.getAttribute("data-caption");
-      panelImg.style.opacity = "0";
-      panelImg.onload = function () { panelImg.style.opacity = "1"; };
-      panelImg.onerror = function () {
-        panelImg.src = "assets/media/M19-A.jpg";
-      };
-      var url = src || "assets/media/M19-A.jpg";
-      if (typeof window.resolveMediaUrl === "function") url = window.resolveMediaUrl(url);
-      panelImg.src = url;
-      if (caption && caption.offsetParent !== null) caption.textContent = cap || "";
-    };
-    picks.forEach(function (pick) {
-      pick.addEventListener("mouseenter", function () { show(pick); });
-      pick.addEventListener("focus", function () { show(pick); });
-      pick.addEventListener("click", function () { show(pick); });
+    var videoSlot = document.getElementById("tech-showcase-video-slot");
+    var counterEl = document.getElementById("tech-showcase-counter");
+    var titleEl = document.getElementById("tech-showcase-item-title");
+    var contextEl = document.getElementById("tech-showcase-context");
+    var listHost = document.getElementById("tech-showcase-list-host");
+    var chipsHost = document.getElementById("tech-showcase-chips-host");
+    if (!root || !items || !items.length || !panelImg || !listHost || !chipsHost) return;
+    if (root.getAttribute("data-ts-init")) return;
+    root.setAttribute("data-ts-init", "1");
+
+    var tabs = [];
+    var chips = [];
+    var pinned = 0;
+    var activeVideo = null;
+    var tablist = document.createElement("div");
+    tablist.className = "tech-showcase__tablist";
+    tablist.setAttribute("role", "tablist");
+    tablist.setAttribute("aria-label", "Technical applications");
+
+    var lastGroup = "";
+    items.forEach(function (item, index) {
+      if (item.group !== lastGroup) {
+        lastGroup = item.group;
+        var gh = document.createElement("h4");
+        gh.className = "tech-showcase__group-title";
+        gh.textContent = item.group;
+        tablist.appendChild(gh);
+      }
+      var tab = document.createElement("button");
+      tab.type = "button";
+      tab.className = "tech-showcase__tab" + (index === 0 ? " is-active" : "");
+      tab.setAttribute("role", "tab");
+      tab.setAttribute("aria-selected", index === 0 ? "true" : "false");
+      tab.setAttribute("tabindex", index === 0 ? "0" : "-1");
+      tab.setAttribute("data-index", String(index));
+      tab.innerHTML =
+        '<span class="tech-showcase__tab-index">' +
+        String(index + 1).padStart(2, "0") +
+        "</span><span class=\"tech-showcase__tab-label\">" +
+        item.name +
+        "</span>";
+      tablist.appendChild(tab);
+      tabs.push(tab);
     });
+    listHost.appendChild(tablist);
+
+    var chipGroups = {};
+    items.forEach(function (item, index) {
+      if (!chipGroups[item.group]) chipGroups[item.group] = [];
+      chipGroups[item.group].push({ item: item, index: index });
+    });
+    Object.keys(chipGroups).forEach(function (groupName) {
+      var block = document.createElement("div");
+      block.className = "tech-showcase__chip-block";
+      var label = document.createElement("p");
+      label.className = "tech-showcase__chip-group-label";
+      label.textContent = groupName;
+      var row = document.createElement("div");
+      row.className = "tech-showcase__chip-row";
+      chipGroups[groupName].forEach(function (entry) {
+        var chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "tech-showcase__chip" + (entry.index === 0 ? " is-active" : "");
+        chip.textContent = entry.item.name;
+        chip.setAttribute("data-index", String(entry.index));
+        row.appendChild(chip);
+        chips.push(chip);
+      });
+      block.appendChild(label);
+      block.appendChild(row);
+      chipsHost.appendChild(block);
+    });
+
+    function mediaUrl(path) {
+      var url = path || "assets/media/M19-A.jpg";
+      if (typeof window.resolveMediaUrl === "function") url = window.resolveMediaUrl(url);
+      return url;
+    }
+
+    function padIndex(i) {
+      return String(i + 1).padStart(2, "0") + " / " + String(items.length).padStart(2, "0");
+    }
+
+    function setActiveUi(index) {
+      tabs.forEach(function (tab, i) {
+        var on = i === index;
+        tab.classList.toggle("is-active", on);
+        tab.setAttribute("aria-selected", on ? "true" : "false");
+        tab.setAttribute("tabindex", on ? "0" : "-1");
+      });
+      chips.forEach(function (chip) {
+        var i = Number(chip.getAttribute("data-index"));
+        chip.classList.toggle("is-active", i === index);
+      });
+    }
+
+    function pauseTechVideo() {
+      if (activeVideo) {
+        activeVideo.pause();
+        activeVideo = null;
+      }
+      if (videoSlot) {
+        videoSlot.hidden = true;
+        videoSlot.replaceChildren();
+      }
+    }
+
+    function mountTechVideo(item) {
+      pauseTechVideo();
+      if (!item.video || !window.OpusVideo) return;
+      var src = item.video;
+      if (typeof src === "object" && window.OpusVideo.pickSrc) src = window.OpusVideo.pickSrc(src);
+      if (!src) return;
+      var video = window.OpusVideo.createVideoElement({ src: src, poster: item.media });
+      video.className = "tech-showcase__video";
+      if (item.videoDuration) video.loop = true;
+      videoSlot.hidden = false;
+      videoSlot.appendChild(video);
+      panelImg.classList.add("is-hidden");
+      if (window.OpusVideo.assignSrc) window.OpusVideo.assignSrc(video, src);
+      else video.src = window.OpusVideo.encodePath(src);
+      video.play().catch(function () {});
+      activeVideo = video;
+    }
+
+    function showIndex(index, pin) {
+      if (index < 0 || index >= items.length) return;
+      if (pin) pinned = index;
+      var item = items[index];
+      setActiveUi(index);
+      if (counterEl) counterEl.textContent = padIndex(index);
+      if (titleEl) titleEl.textContent = item.name;
+      if (contextEl) contextEl.textContent = item.context || "";
+
+      if (mediaWrap) mediaWrap.classList.add("is-loading");
+      window.setTimeout(function () {
+        if (mediaWrap) mediaWrap.classList.remove("is-loading");
+      }, 220);
+
+      if (item.video) {
+        mountTechVideo(item);
+      } else {
+        pauseTechVideo();
+        panelImg.classList.remove("is-hidden");
+        panelImg.style.opacity = "0";
+        panelImg.onload = function () {
+          panelImg.style.opacity = "1";
+        };
+        panelImg.onerror = function () {
+          panelImg.src = mediaUrl("assets/media/M19-A.jpg");
+        };
+        panelImg.src = mediaUrl(item.media);
+      }
+    }
+
+    function focusTab(index) {
+      var tab = tabs[index];
+      if (tab) tab.focus();
+    }
+
+    function focusedTabIndex() {
+      var active = document.activeElement;
+      if (active && active.classList.contains("tech-showcase__tab")) {
+        return Number(active.getAttribute("data-index"));
+      }
+      return pinned;
+    }
+
+    tablist.addEventListener("keydown", function (e) {
+      var current = focusedTabIndex();
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        var next = Math.min(items.length - 1, current + 1);
+        showIndex(next, false);
+        focusTab(next);
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        var prev = Math.max(0, current - 1);
+        showIndex(prev, false);
+        focusTab(prev);
+      } else if (e.key === "Home") {
+        e.preventDefault();
+        showIndex(0, false);
+        focusTab(0);
+      } else if (e.key === "End") {
+        e.preventDefault();
+        showIndex(items.length - 1, false);
+        focusTab(items.length - 1);
+      } else if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        showIndex(focusedTabIndex(), true);
+      }
+    });
+
+    tabs.forEach(function (tab) {
+      var index = Number(tab.getAttribute("data-index"));
+      tab.addEventListener("click", function () {
+        showIndex(index, true);
+      });
+      if (finePointer) {
+        tab.addEventListener("mouseenter", function () {
+          showIndex(index, false);
+        });
+        tab.addEventListener("mouseleave", function () {
+          showIndex(pinned, false);
+        });
+      }
+      tab.addEventListener("focus", function () {
+        showIndex(index, false);
+      });
+      tab.addEventListener("blur", function () {
+        window.setTimeout(function () {
+          if (!tablist.contains(document.activeElement)) showIndex(pinned, false);
+        }, 0);
+      });
+    });
+
+    chips.forEach(function (chip) {
+      var index = Number(chip.getAttribute("data-index"));
+      chip.addEventListener("click", function () {
+        showIndex(index, true);
+        chip.scrollIntoView({ inline: "center", block: "nearest", behavior: reduceMotion ? "auto" : "smooth" });
+      });
+    });
+
+    showIndex(0, true);
+    panelImg.alt = items[0].name;
   }
 
   function initCategoryCarousel() {
