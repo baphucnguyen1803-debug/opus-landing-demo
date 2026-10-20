@@ -1,0 +1,130 @@
+/* Stats band — tiered capacity layout */
+#stats-band.stats {
+  background: #141312;
+  color: #fff;
+  margin: 0;
+  padding-block: 64px;
+}
+
+@media (min-width: 768px) {
+  #stats-band.stats {
+    padding-block: 96px;
+  }
+}
+
+#stats-band .stats-band__inner {
+  display: flex;
+  flex-direction: column;
+}
+
+#stats-band h3 {
+  margin: 0;
+  color: #fff;
+}
+
+.stats-band__rule {
+  width: 56px;
+  height: 2px;
+  background: #a85b38;
+  margin: 20px 0 56px;
+  border: 0;
+}
+
+.stats-tier1 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: end;
+}
+
+@media (min-width: 768px) {
+  .stats-tier1 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.stats-tier1__item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.stats-tier1__num {
+  font-size: clamp(44px, 5vw, 76px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+}
+
+.stats-tier1__label {
+  display: block;
+  margin-top: 12px;
+  max-width: 16ch;
+  font-size: 15px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.stats-band__divider {
+  border: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 56px 0 40px;
+}
+
+.stats-tier2 {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px 40px;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .stats-tier2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .stats-tier2 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.stats-tier2__line {
+  display: block;
+  min-height: 3.75em;
+  font-size: 15px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.72);
+  vertical-align: baseline;
+}
+
+.stats-tier2__line .n {
+  font-size: 26px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+  margin-right: 10px;
+  vertical-align: baseline;
+}
+
+.stats-tier2__nowrap {
+  white-space: nowrap;
+}
+
+.stats-band__callout {
+  margin: 56px 0 0;
+  max-width: 70ch;
+  padding: 28px 32px;
+  background: #1c1a19;
+  border-left: 3px solid #a85b38;
+  border-radius: 0 12px 12px 0;
+  font-size: 17px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.85);
+}

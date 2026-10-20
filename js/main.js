@@ -385,24 +385,29 @@
   function initStats() {
     var band = document.getElementById("stats-band");
     if (!band) return;
-    var nums = band.querySelectorAll("[data-count]");
+    var nums = band.querySelectorAll(".stats-tier1__num[data-count]");
     var run = function () {
-      nums.forEach(function (el) {
+      nums.forEach(function (el, i) {
         var end = Number(el.getAttribute("data-count"));
         var format = el.getAttribute("data-format");
         if (reduceMotion) {
           el.textContent = formatNumber(end, format);
           return;
         }
-        var start = performance.now();
-        var dur = 1400;
-        var tick = function (now) {
-          var t = Math.min(1, (now - start) / dur);
-          var eased = 1 - Math.pow(1 - t, 3);
-          el.textContent = formatNumber(Math.round(end * eased), format);
-          if (t < 1) requestAnimationFrame(tick);
-        };
-        requestAnimationFrame(tick);
+        var floor = Math.round(end * 0.7);
+        var delay = i * 100;
+        var dur = 1200;
+        window.setTimeout(function () {
+          var start = performance.now();
+          var tick = function (now) {
+            var t = Math.min(1, (now - start) / dur);
+            var eased = 1 - Math.pow(1 - t, 3);
+            var value = Math.round(floor + (end - floor) * eased);
+            el.textContent = formatNumber(value, format);
+            if (t < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+        }, delay);
       });
     };
     if (!("IntersectionObserver" in window)) { run(); return; }

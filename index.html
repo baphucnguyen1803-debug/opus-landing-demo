@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="css/globe-pass.css">
   <link rel="stylesheet" href="css/pillar-pass.css">
   <link rel="stylesheet" href="css/media-layout-pass.css">
+  <link rel="stylesheet" href="css/stats-band-pass.css">
   <link rel="preload" as="image" href="assets/media/M02.jpg" fetchpriority="high">
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 </head>
@@ -383,22 +384,45 @@
       </div>
 
       <div class="stats" id="stats-band">
-        <div class="wrap stack">
+        <div class="wrap stats-band__inner">
           <h3>Production capacity supported by structure.</h3>
-          <div class="stats__row stats__row--lg">
-            <div><strong data-count="250000" data-format="comma">0</strong><span>pairs of monthly capacity</span></div>
-            <div><strong data-count="3500" data-format="comma">0</strong><span>samples per month</span></div>
-            <div><strong data-count="3000" data-format="comma">0</strong><span>employees</span></div>
-            <div><strong data-count="50000" data-format="comma">0</strong><span>sqm of manufacturing facility</span></div>
+          <div class="stats-band__rule" aria-hidden="true"></div>
+          <div class="stats-tier1">
+            <div class="stats-tier1__item">
+              <strong class="stats-tier1__num" data-count="250000" data-format="comma">0</strong>
+              <span class="stats-tier1__label">pairs of monthly capacity</span>
+            </div>
+            <div class="stats-tier1__item">
+              <strong class="stats-tier1__num" data-count="3500" data-format="comma">0</strong>
+              <span class="stats-tier1__label">samples per month</span>
+            </div>
+            <div class="stats-tier1__item">
+              <strong class="stats-tier1__num" data-count="3000" data-format="comma">0</strong>
+              <span class="stats-tier1__label">employees</span>
+            </div>
           </div>
-          <div class="stats__row stats__row--sm">
-            <div><strong data-count="10">0</strong><span>assembly lines</span></div>
-            <div><strong data-count="30">0</strong><span>modular stitching lines</span></div>
-            <div><strong data-count="6">0</strong><span>sole processing lines</span></div>
-            <div><strong data-count="24">0</strong><span>HF and TPU no-sew machines</span></div>
-            <div><strong data-count="8">0</strong><span>climate-controlled warehouse facilities</span></div>
-          </div>
-          <p>These numbers show the scale of the platform. The value comes from how that scale is managed: by aligning product type, construction, materials, production flow, and quality expectations with the right manufacturing route.</p>
+          <hr class="stats-band__divider" />
+          <ul class="stats-tier2">
+            <li>
+              <span class="stats-tier2__line"><span class="stats-tier2__nowrap"><span class="n">50,000</span> sqm</span> of manufacturing facility</span>
+            </li>
+            <li>
+              <span class="stats-tier2__line"><span class="stats-tier2__nowrap"><span class="n">10</span> assembly</span> lines</span>
+            </li>
+            <li>
+              <span class="stats-tier2__line"><span class="stats-tier2__nowrap"><span class="n">30</span> modular</span> stitching lines</span>
+            </li>
+            <li>
+              <span class="stats-tier2__line"><span class="stats-tier2__nowrap"><span class="n">6</span> sole</span> processing lines</span>
+            </li>
+            <li>
+              <span class="stats-tier2__line"><span class="stats-tier2__nowrap"><span class="n">24</span> HF</span> and TPU no-sew machines</span>
+            </li>
+            <li>
+              <span class="stats-tier2__line"><span class="stats-tier2__nowrap"><span class="n">8</span> climate-controlled</span> warehouse facilities</span>
+            </li>
+          </ul>
+          <p class="stats-band__callout">These numbers show the scale of the platform. The value comes from how that scale is managed: by aligning product type, construction, materials, production flow, and quality expectations with the right manufacturing route.</p>
         </div>
       </div>
 
