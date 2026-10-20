@@ -1,3 +1,12 @@
+/* Tighter handoff from platform pillars to OPUSlab */
+#platform.section--light {
+  padding-bottom: clamp(36px, 4.5vw, 56px);
+}
+
+#opuslab.section--light {
+  padding-top: clamp(36px, 4.5vw, 56px);
+}
+
 .pillar-grid .pillar-card {
   background: #fff;
   border-radius: 18px;

@@ -126,9 +126,6 @@
   display: block;
 }
 
-.tech-showcase__media {
-  min-height: 360px;
-}
 
 .cat-card__media.media-slot {
   aspect-ratio: auto;

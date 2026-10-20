@@ -9,18 +9,19 @@ var PRESENCE_NAMES = {
   China: 1,
   Singapore: 1,
 };
-var REGION = {
-  type: "Polygon",
-  coordinates: [[[-15, -12], [135, -12], [135, 62], [-15, 62], [-15, -12]]],
-};
-
 var LOCATIONS = [
-  { id: "treviso", lat: 45.67, lng: 12.24, type: "hub", label: "Treviso, Italy", dx: -72, dy: -32 },
-  { id: "hcmc", lat: 10.82, lng: 106.63, type: "hub", label: "Ho Chi Minh City, Vietnam", dx: 14, dy: 22 },
-  { id: "amsterdam", lat: 52.37, lng: 4.9, type: "support", label: "Amsterdam", dx: -78, dy: -8 },
-  { id: "guangzhou", lat: 23.13, lng: 113.26, type: "support", label: "Guangzhou", dx: 12, dy: -18 },
-  { id: "singapore", lat: 1.35, lng: 103.82, type: "support", label: "Singapore", dx: 16, dy: 28 },
+  { id: "treviso", lat: 45.67, lng: 12.24, type: "hub", label: "Treviso, Italy", dx: -96, dy: -38 },
+  { id: "hcmc", lat: 10.82, lng: 106.63, type: "hub", label: "Ho Chi Minh City, Vietnam", dx: 58, dy: 10 },
+  { id: "amsterdam", lat: 52.37, lng: 4.9, type: "support", label: "Amsterdam", dx: -102, dy: -58 },
+  { id: "guangzhou", lat: 23.13, lng: 113.26, type: "support", label: "Guangzhou", dx: 62, dy: -48 },
+  { id: "singapore", lat: 1.35, lng: 103.82, type: "support", label: "Singapore", dx: 68, dy: 42 },
 ];
+
+/* Europe → South-East Asia corridor (not full world) */
+var MAP_VIEW_REGION = {
+  type: "Polygon",
+  coordinates: [[[-12, 56], [28, 58], [128, 22], [118, -10], [95, -12], [-12, 42], [-12, 56]]],
+};
 
 function arcLine(start, end, n) {
   var pts = [];
@@ -117,9 +118,11 @@ function initMap() {
       pin.addEventListener("mouseleave", function () { setHighlight(null); });
       pin.addEventListener("blur", function () { setHighlight(null); });
       pin.addEventListener("click", function () {
-        if (mobile() && loc.type !== "hub") {
-          pin.classList.toggle("is-label-on");
-        }
+        mount.querySelectorAll(".map-pin").forEach(function (p) {
+          if (p !== pin) p.classList.remove("is-label-on");
+        });
+        pin.classList.toggle("is-label-on");
+        setHighlight(loc.id);
       });
 
       pinsLayer.appendChild(pin);
@@ -130,7 +133,7 @@ function initMap() {
     var rect = mount.getBoundingClientRect();
     width = Math.max(280, rect.width);
     height = Math.max(320, rect.height);
-    projection = geoMercator().fitExtent([[24, 24], [width - 24, height - 24]], REGION);
+    projection = geoMercator().fitExtent([[28, 28], [width - 28, height - 28]], MAP_VIEW_REGION);
     path = geoPath(projection);
 
     svg.setAttribute("viewBox", "0 0 " + width + " " + height);

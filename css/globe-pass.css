@@ -142,6 +142,14 @@
   border-radius: 999px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   pointer-events: none;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.map-pin.is-highlight .map-pin__label,
+.map-pin.is-label-on .map-pin__label {
+  opacity: 1;
+  z-index: 6;
 }
 
 .map-pin__leader {

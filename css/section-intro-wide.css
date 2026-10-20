@@ -1,0 +1,29 @@
+.section-head.section-intro--wide {
+  max-width: none;
+}
+
+.section-intro--wide :is(h2, h3),
+.section-intro--wide .lede,
+.section-intro--wide > p,
+.section-intro--wide .section-intro__tail {
+  max-width: none;
+}
+
+.how .section-intro--wide .lede {
+  max-width: none;
+}
+
+.section-intro--wide .section-intro__tail {
+  margin-bottom: 56px;
+}
+
+.presence .section-intro--wide .lede {
+  max-width: none;
+}
+
+.constructions .section-intro--wide .lede,
+.constructions .section-intro--wide > p,
+.categories .section-intro--wide .lede,
+.categories .section-intro--wide > p {
+  max-width: none;
+}

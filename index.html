@@ -16,10 +16,22 @@
   <link rel="stylesheet" href="css/globe-pass.css">
   <link rel="stylesheet" href="css/pillar-pass.css">
   <link rel="stylesheet" href="css/media-layout-pass.css">
+  <link rel="stylesheet" href="css/tech-showcase-pass.css">
+  <link rel="stylesheet" href="css/stats-band-pass.css">
+  <link rel="stylesheet" href="css/lab-services-stage.css">
+  <link rel="stylesheet" href="css/whatsapp-fab.css">
+  <link rel="stylesheet" href="css/how-steps-pass.css">
+  <link rel="stylesheet" href="css/section-intro-wide.css">
+  <link rel="stylesheet" href="css/prose-full.css">
+  <link rel="stylesheet" href="css/manufacturing-intro.css">
+  <link rel="stylesheet" href="css/section-brand-display.css">
   <link rel="preload" as="image" href="assets/media/M02.jpg" fetchpriority="high">
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
 </head>
 <body>
+  <a class="whatsapp-fab" id="whatsapp-fab" href="#" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp" hidden>
+    <svg viewBox="0 0 24 24" width="32" height="32" aria-hidden="true"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
   <header class="site-header" id="site-header">
     <div class="header-inner">
       <a class="brand" href="#top" aria-label="Opus">
@@ -67,7 +79,7 @@
         </div>
       </div>
       <div class="hero__shade" aria-hidden="true"></div>
-      <div class="hero__copy wrap stack">
+      <div class="hero__copy wrap stack prose-full">
         <h1>Footwear product creation, 3D innovation, and manufacturing in one connected platform</h1>
         <p>OPUS brings together OPUSlab, OPUStudio, and OPUS Manufacturing to guide footwear brands from concept through virtual and technical development to digital assets, marketing content, and Vietnam-based manufacturing.</p>
         <div class="hero__actions" id="hero-cta">
@@ -82,7 +94,7 @@
 
     <section class="section section--light" id="platform">
       <div class="wrap">
-        <div class="section-head reveal stack">
+        <div class="section-head reveal stack prose-full section-intro--wide">
           <h2>Create, present, and manufacture footwear through one platform</h2>
           <p class="lede">Three specialized pillars support the work from early concept to market communication and Vietnam-based production.</p>
         </div>
@@ -119,9 +131,9 @@
       <div class="wrap">
         <div class="split split--lab-intro">
           <div class="reveal stack">
-            <p class="eyebrow">OPUSlab</p>
-            <h2>OPUSlab, creating footwear through design, 3D, and technical innovation</h2>
-            <p>OPUSlab brings together design direction, 3D and virtual development, technical interpretation, and physical development to move brand teams from early concept to production-ready footwear with fewer gaps across design, engineering, sampling, and manufacturing.</p>
+            <p class="section-brand-name">OPUSlab</p>
+            <h2 class="section-brand-tagline">creating footwear through design, 3D, and technical innovation</h2>
+            <p class="lede section-lede--sm">OPUSlab brings together design direction, 3D and virtual development, technical interpretation, and physical development to move brand teams from early concept to production-ready footwear with fewer gaps across design, engineering, sampling, and manufacturing.</p>
           </div>
           <div class="reveal">
             <div class="media-slot" data-media-id="M06" data-kind="video" data-ratio="16/9">
@@ -132,48 +144,22 @@
         </div>
 
         <!-- OPTION B (commented): vertical service card — image 16/10 full width, text below, padding 28px. -->
-        <div class="service-card-grid sr-stagger section-content">
-          <article class="service-card service-card--featured sr-in" id="product-creation">
-            <div class="service-card__media media-slot" data-media-id="OPUS-PC" data-kind="video" data-ratio="16/10" data-alt="Product Creation at OPUSlab"></div>
-            <div class="service-card__body stack">
-              <p class="service-card__eyebrow">Where it starts</p>
-              <h3>Product Creation</h3>
-              <p>Product Creation shapes the early decisions behind a footwear program: category, consumer, design direction, material logic, construction, fit expectations, cost target, and development route.</p>
-              <a class="service-card__link" href="#contact?service=product-creation" data-cta="Discuss Product Creation" data-support="opuslab">Discuss Product Creation <span class="link-arrow" aria-hidden="true">→</span></a>
+        <div class="service-card-grid sr-stagger section-content" id="product-creation">
+          <div class="lab-services-stage sr-in prose-full" id="lab-services-stage" aria-label="OPUSlab services">
+            <div class="lab-services-stage__tabs" role="tablist" aria-label="OPUSlab service videos">
+              <button type="button" class="lab-services-stage__tab is-active" role="tab" aria-selected="true" data-index="0">Product Creation</button>
+              <button type="button" class="lab-services-stage__tab" role="tab" aria-selected="false" tabindex="-1" data-index="1">Design &amp; 3D Development</button>
+              <button type="button" class="lab-services-stage__tab" role="tab" aria-selected="false" tabindex="-1" data-index="2">Virtual Development</button>
+              <button type="button" class="lab-services-stage__tab" role="tab" aria-selected="false" tabindex="-1" data-index="3">Development Center</button>
+              <button type="button" class="lab-services-stage__tab" role="tab" aria-selected="false" tabindex="-1" data-index="4">Outsole Mould &amp; Tooling Engineering</button>
             </div>
-          </article>
-          <article class="service-card sr-in">
-            <div class="service-card__media media-slot" data-media-id="M07" data-kind="video" data-ratio="4/3" data-alt="Design and 3D Development"></div>
-            <div class="service-card__body stack">
-              <h3>Design & 3D Development</h3>
-              <p>Design & 3D Development helps teams review footwear earlier through CAD, 3D models, last-based proportion review, material exploration, and editable digital product data.</p>
-              <a class="service-card__link" href="#contact" data-cta="Discuss Design & 3D Development" data-support="opuslab">Discuss Design &amp; 3D Development <span class="link-arrow" aria-hidden="true">→</span></a>
+            <div class="lab-services-stage__media media-slot" id="lab-services-stage-media" data-media-id="OPUS-PC" data-kind="video" data-ratio="16/9" data-alt="Product Creation at OPUSlab"></div>
+            <div class="lab-services-stage__body stack">
+              <h3 id="lab-services-stage-title">Product Creation</h3>
+              <p id="lab-services-stage-text">Product Creation shapes the early decisions behind a footwear program: category, consumer, design direction, material logic, construction, fit expectations, cost target, and development route.</p>
+              <a class="service-card__link" id="lab-services-stage-cta" href="#contact?service=product-creation" data-cta="Discuss Product Creation" data-support="opuslab">Discuss Product Creation <span class="link-arrow" aria-hidden="true">→</span></a>
             </div>
-          </article>
-          <article class="service-card sr-in">
-            <div class="service-card__media media-slot" data-media-id="M08" data-kind="video" data-ratio="4/3" data-alt="Virtual Development"></div>
-            <div class="service-card__body stack">
-              <h3>Virtual Development</h3>
-              <p>Virtual Development supports digital footwear workflows for both new and existing styles. This can include physical-to-digital conversion, reusable 3D style libraries, material and color updates, and virtual assets that help product teams review, update, and manage styles more efficiently across seasons.</p>
-              <a class="service-card__link" href="#contact" data-cta="Discuss Virtual Development" data-support="opuslab">Discuss Virtual Development <span class="link-arrow" aria-hidden="true">→</span></a>
-            </div>
-          </article>
-          <article class="service-card sr-in">
-            <div class="service-card__media media-slot" data-media-id="M09" data-kind="video" data-ratio="4/3" data-alt="Development Center"></div>
-            <div class="service-card__body stack">
-              <h3>Development Center</h3>
-              <p>The Development Center is where footwear becomes physical. It develops last, pattern, construction, materials, development tooling, sampling stages, fitting, testing, line review, and manufacturing readiness.</p>
-              <a class="service-card__link" href="#contact" data-cta="Discuss Development Center" data-support="opuslab">Discuss Development Center <span class="link-arrow" aria-hidden="true">→</span></a>
-            </div>
-          </article>
-          <article class="service-card sr-in">
-            <div class="service-card__media media-slot" data-media-id="M10" data-kind="video" data-ratio="4/3" data-alt="Outsole mould and tooling"></div>
-            <div class="service-card__body stack">
-              <h3>Outsole Mould & Tooling Engineering</h3>
-              <p>Outsole Mould and Tooling Engineering focus on the bottom unit of the shoe. OPUSlab supports outsole design, 3D development, blueprinting, mockups, compound and process alignment, mould development, and sole engineering. This helps brands review outsole concepts before mould investment and prepare bottom units for real product, wear, and manufacturing conditions.</p>
-              <a class="service-card__link" href="#contact" data-cta="Discuss Outsole Mould & Tooling Engineering" data-support="opuslab">Discuss Outsole Mould &amp; Tooling Engineering <span class="link-arrow" aria-hidden="true">→</span></a>
-            </div>
-          </article>
+          </div>
         </div>
 
         <div class="stages reveal stack">
@@ -222,7 +208,7 @@
               <p>Samples used to assess physical performance, wear behavior, construction reliability, and category-specific requirements.</p>
             </article>
           </div>
-          <p class="stages__close">Each stage exists for a reason. Together, they create a disciplined route from concept to commercial product.</p>
+          <p class="stages__close prose-full">Each stage exists for a reason. Together, they create a disciplined route from concept to commercial product.</p>
         </div>
 
         <!-- OPTION B (commented): sticky muted looping 3D material-swap video in place of the comparison slider. -->
@@ -240,123 +226,99 @@
 
     <section class="section section--dark" id="opustudio">
       <div class="container">
-        <div class="stack opustudio-intro sr-in section-intro">
-          <p class="eyebrow">OPUStudio</p>
-          <h2>OPUStudio, where footwear becomes digital brand assets</h2>
-          <p class="lede">3D rendering, animation, videos, and interactive showcases for marketing, sales, e-commerce, and faster market communication.</p>
+        <div class="stack opustudio-intro sr-in section-intro section-intro--wide prose-full">
+          <p class="section-brand-name">OPUStudio</p>
+          <h2 class="section-brand-tagline">where footwear becomes digital brand assets</h2>
+          <p class="lede section-lede--sm">3D rendering, animation, videos, and interactive showcases for marketing, sales, e-commerce, and faster market communication.</p>
           <p>OPUStudio creates photorealistic footwear renders, animation, videos, and interactive digital assets for e-commerce, sales tools, campaigns, and launches. The same shoe can be shown in different colors, materials, lighting conditions, and environments without repeating a full physical shoot.</p>
         </div>
-        <div class="opustudio-services section-content" id="opustudio-services">
-          <article class="studio-card studio-card--render sr-in" id="studio-render-card">
-            <div class="studio-render__stage-wrap">
-              <div class="studio-render__stage">
-                <img class="studio-render__img" id="studio-render-img" src="assets/media/wire/opustudio/render-opt-1.jpg" alt="">
-              </div>
-              <div class="studio-render__tabs" id="studio-render-tabs" hidden></div>
+        <div class="section-content" id="opustudio-services">
+          <div class="lab-services-stage lab-services-stage--studio sr-in prose-full" id="studio-services-stage" aria-label="OPUStudio services">
+            <div class="lab-services-stage__tabs" role="tablist" aria-label="OPUStudio service media">
+              <button type="button" class="lab-services-stage__tab is-active" role="tab" aria-selected="true" data-index="0">3D Rendering</button>
+              <button type="button" class="lab-services-stage__tab" role="tab" aria-selected="false" tabindex="-1" data-index="1">Animation</button>
+              <button type="button" class="lab-services-stage__tab" role="tab" aria-selected="false" tabindex="-1" data-index="2">Digital Asset Creation</button>
+              <button type="button" class="lab-services-stage__tab" role="tab" aria-selected="false" tabindex="-1" data-index="3">Interactive E-commerce</button>
             </div>
-            <div class="studio-render__panel stack">
-              <h3>3D Rendering</h3>
-              <p>Realistic footwear renders for product pages, campaigns, launch previews, sales presentations, and material or colorway updates.</p>
-              <p class="studio-render__colorway-label">Colorway: <span id="studio-colorway-name">Beige</span></p>
-              <div class="studio-render__swatches" id="studio-render-swatches" role="listbox" aria-label="Colorway options"></div>
-              <a class="studio-card__cta" href="#contact" data-cta="Discuss Footwear Rendering" data-support="opustudio">Discuss Footwear Rendering →</a>
+            <div class="lab-services-stage__media-stack" id="studio-services-stage-media-stack">
+              <div class="studio-stage-panel studio-stage-panel--render is-active" id="studio-render-card">
+                <div class="studio-render__stage">
+                  <img class="studio-render__img" id="studio-render-img" src="assets/media/wire/opustudio/render-opt-1.jpg" alt="3D footwear render colorway preview">
+                </div>
+              </div>
+              <div class="lab-services-stage__media media-slot studio-stage-panel studio-stage-panel--media" id="studio-services-stage-media" data-ratio="16/9" aria-hidden="true"></div>
+              <div class="studio-stage-panel studio-stage-panel--ecom" id="studio-stage-ecom" aria-hidden="true">
+                <div class="studio-ecom__viewer" id="studio-ecom-viewer">
+                  <model-viewer
+                    id="studio-shoe-model"
+                    src="assets/studio/shoe.glb"
+                    poster="assets/media/M14.jpg"
+                    camera-controls
+                    touch-action="pan-y"
+                    disable-zoom
+                    auto-rotate
+                    auto-rotate-delay="1200"
+                    rotation-per-second="18deg"
+                    interaction-prompt="auto"
+                    shadow-intensity="0.8"
+                    exposure="1"
+                    loading="lazy"
+                    reveal="auto"
+                    alt="Interactive footwear model">
+                  </model-viewer>
+                  <span class="studio-ecom__hint" id="studio-ecom-hint" hidden>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 13V8.5a2.5 2.5 0 0 1 5 0V13"/><path d="M6 13h12l-1 8H7l-1-8z"/></svg>
+                    Drag to rotate
+                  </span>
+                  <div class="studio-ecom__variants" id="studio-model-variants" hidden></div>
+                </div>
+              </div>
             </div>
-          </article>
-          <div class="studio-row-2">
-            <article class="studio-card studio-card--anim sr-in">
-              <div class="studio-anim__media media-slot" data-media-id="M13" data-kind="video" data-ratio="16/9"></div>
-              <div class="studio-anim__scrim" aria-hidden="true"></div>
-              <div class="studio-anim__copy stack">
-                <h3>Animation</h3>
-                <p>Footwear animation for product storytelling, launch content, websites, social media, campaign assets, and product explainers.</p>
-                <a class="studio-card__cta" href="#contact" data-cta="Discuss Footwear Animation" data-support="opustudio">Discuss Footwear Animation →</a>
+            <div class="lab-services-stage__body stack">
+              <h3 id="studio-services-stage-title">3D Rendering</h3>
+              <p id="studio-services-stage-text">Realistic footwear renders for product pages, campaigns, launch previews, sales presentations, and material or colorway updates.</p>
+              <div class="studio-render__extras" id="studio-render-extras">
+                <p class="studio-render__colorway-label">Colorway: <span id="studio-colorway-name">Beige</span></p>
+                <div class="studio-render__swatches" id="studio-render-swatches" role="listbox" aria-label="Colorway options"></div>
               </div>
-            </article>
-            <article class="studio-card studio-card--assets sr-in">
-              <div class="studio-assets__visual">
-                <img id="studio-digital-asset-img" src="assets/media/wire/opustudio/digital-asset.jpg" alt="" loading="lazy">
-              </div>
-              <div class="studio-assets__inner stack">
-                <h3>Digital Asset Creation</h3>
-                <p>Reusable digital product assets and digital style libraries that support sales teams, e-commerce, seasonal updates, launch planning, and internal product communication.</p>
-                <a class="studio-card__cta" href="#contact" data-cta="Discuss Digital Product Assets" data-support="opustudio">Discuss Digital Product Assets →</a>
-              </div>
-            </article>
+              <a class="studio-card__cta" id="studio-services-stage-cta" href="#contact" data-cta="Discuss Footwear Rendering" data-support="opustudio">Discuss Footwear Rendering <span class="link-arrow" aria-hidden="true">→</span></a>
+            </div>
           </div>
-          <article class="studio-card studio-card--ecom sr-in">
-            <div class="studio-ecom__viewer-wrap">
-              <div class="studio-ecom__viewer" id="studio-ecom-viewer">
-                <model-viewer
-                  id="studio-shoe-model"
-                  src="assets/studio/shoe.glb"
-                  poster="assets/media/M14.jpg"
-                  camera-controls
-                  touch-action="pan-y"
-                  disable-zoom
-                  auto-rotate
-                  auto-rotate-delay="1200"
-                  rotation-per-second="18deg"
-                  interaction-prompt="auto"
-                  shadow-intensity="0.8"
-                  exposure="1"
-                  loading="lazy"
-                  reveal="auto"
-                  alt="Interactive footwear model">
-                </model-viewer>
-                <span class="studio-ecom__hint" id="studio-ecom-hint" hidden>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 13V8.5a2.5 2.5 0 0 1 5 0V13"/><path d="M6 13h12l-1 8H7l-1-8z"/></svg>
-                  Drag to rotate
-                </span>
-                <div class="studio-ecom__variants" id="studio-model-variants" hidden></div>
-              </div>
-            </div>
-            <div class="studio-ecom__panel stack">
-              <h3>Interactive E-commerce</h3>
-              <p>Interactive e-commerce visuals for online product presentation, digital catalogs, and clearer product viewing across commercial channels.</p>
-              <a class="studio-card__cta" href="#contact" data-cta="Plan E-commerce Visuals" data-support="opustudio">Plan E-commerce Visuals →</a>
-            </div>
-          </article>
         </div>
 
         <div class="audience-block section-content">
-          <div class="audience-intro sr-in stack">
+          <div class="audience-intro sr-in stack prose-full">
             <h2>Built for marketing, sales, and digital teams</h2>
             <p class="audience-intro__lede">OPUStudio is designed for footwear brands and cross-functional teams that need reliable product visuals across commercial touchpoints.</p>
           </div>
           <div class="audience-grid sr-stagger">
             <article class="audience-card sr-in">
               <span class="audience-card__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></span>
-              <img class="audience-card__thumb" src="assets/media/M12-A.jpg" alt="">
               <h3 class="audience-card__title">Marketing teams</h3>
               <p class="audience-card__line">preparing launch and campaign assets</p>
             </article>
             <article class="audience-card sr-in">
               <span class="audience-card__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg></span>
-              <img class="audience-card__thumb" src="assets/media/M22-B.jpg" alt="">
               <h3 class="audience-card__title">E-commerce teams</h3>
               <p class="audience-card__line">building product pages and online catalogs</p>
             </article>
             <article class="audience-card sr-in">
               <span class="audience-card__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="14" x="3" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></span>
-              <img class="audience-card__thumb" src="assets/media/M14.jpg" alt="">
               <h3 class="audience-card__title">Sales teams</h3>
               <p class="audience-card__line">creating sell-in tools and presentations</p>
             </article>
             <article class="audience-card sr-in">
               <span class="audience-card__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg></span>
-              <img class="audience-card__thumb" src="assets/media/M12-C.jpg" alt="">
               <h3 class="audience-card__title">Product teams</h3>
               <p class="audience-card__line">reviewing styles, colorways, and seasonal updates</p>
             </article>
             <article class="audience-card sr-in">
               <span class="audience-card__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/></svg></span>
-              <img class="audience-card__thumb" src="assets/media/M16.jpg" alt="">
               <h3 class="audience-card__title">Brand teams</h3>
               <p class="audience-card__line">managing visual consistency across channels</p>
             </article>
             <article class="audience-card sr-in">
               <span class="audience-card__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>
-              <img class="audience-card__thumb" src="assets/media/M12-D.jpg" alt="">
               <h3 class="audience-card__title">Advertising teams</h3>
               <p class="audience-card__line">promoting brand awareness</p>
             </article>
@@ -367,12 +329,12 @@
     </section>
 
     <section class="section section--light" id="manufacturing">
-      <div class="wrap">
-        <div class="split">
+      <div class="wrap manufacturing-intro">
+        <div class="split manufacturing-split prose-full">
         <div class="reveal stack">
-          <p class="eyebrow">OPUS Manufacturing</p>
-            <h2>Manufacturing built around the shoe</h2>
-            <p class="lede">Vietnam-based production shaped by brand category, construction, technical requirements, and production capabilities.</p>
+          <p class="section-brand-name">OPUS Manufacturing</p>
+            <h2 class="section-brand-tagline">Manufacturing built around the shoe</h2>
+            <p class="lede section-lede--sm">Vietnam-based production shaped by brand category, construction, technical requirements, and production capabilities.</p>
             <p>Footwear becomes stronger when development and manufacturing are built around the same product logic. OPUS Manufacturing supports complex constructions, advanced upper applications, outsole engineering, performance materials, and production oversight so brands can move from development into production with greater confidence.</p>
             <p>Our production facilities are designed for flexibility. Whether it is a small batch of luxury sneakers or a large-scale athletic line, we adapt our manufacturing to the specific needs of the footwear construction.</p>
           </div>
@@ -383,56 +345,68 @@
       </div>
 
       <div class="stats" id="stats-band">
-        <div class="wrap stack">
+        <div class="wrap">
           <h3>Production capacity supported by structure.</h3>
-          <div class="stats__row stats__row--lg">
-            <div><strong data-count="250000" data-format="comma">0</strong><span>pairs of monthly capacity</span></div>
-            <div><strong data-count="3500" data-format="comma">0</strong><span>samples per month</span></div>
-            <div><strong data-count="3000" data-format="comma">0</strong><span>employees</span></div>
-            <div><strong data-count="50000" data-format="comma">0</strong><span>sqm of manufacturing facility</span></div>
+          <div class="stats-band__rule" aria-hidden="true"></div>
+          <div class="stats-band__grid stats-band__grid--hero">
+            <div class="stats-band__cell stats-band__cell--hero">
+              <strong data-count="250000" data-format="comma">0</strong>
+              <span>pairs of monthly capacity</span>
+            </div>
+            <div class="stats-band__cell stats-band__cell--hero">
+              <strong data-count="3500" data-format="comma">0</strong>
+              <span>samples per month</span>
+            </div>
+            <div class="stats-band__cell stats-band__cell--hero">
+              <strong data-count="3000" data-format="comma">0</strong>
+              <span>employees</span>
+            </div>
+            <div class="stats-band__cell stats-band__cell--hero">
+              <strong data-count="50000" data-format="comma">0</strong>
+              <span>sqm of manufacturing facility</span>
+            </div>
           </div>
-          <div class="stats__row stats__row--sm">
-            <div><strong data-count="10">0</strong><span>assembly lines</span></div>
-            <div><strong data-count="30">0</strong><span>modular stitching lines</span></div>
-            <div><strong data-count="6">0</strong><span>sole processing lines</span></div>
-            <div><strong data-count="24">0</strong><span>HF and TPU no-sew machines</span></div>
-            <div><strong data-count="8">0</strong><span>climate-controlled warehouse facilities</span></div>
+          <div class="stats-band__grid stats-band__grid--detail">
+            <div class="stats-band__cell stats-band__cell--detail">
+              <strong data-count="10">0</strong> assembly lines
+            </div>
+            <div class="stats-band__cell stats-band__cell--detail">
+              <strong data-count="30">0</strong> modular stitching lines
+            </div>
+            <div class="stats-band__cell stats-band__cell--detail">
+              <strong data-count="6">0</strong> sole processing lines
+            </div>
+            <div class="stats-band__cell stats-band__cell--detail">
+              <strong data-count="24">0</strong> HF and TPU no-sew machines
+            </div>
+            <div class="stats-band__cell stats-band__cell--detail">
+              <strong data-count="8">0</strong> climate-controlled warehouse facilities
+            </div>
           </div>
-          <p>These numbers show the scale of the platform. The value comes from how that scale is managed: by aligning product type, construction, materials, production flow, and quality expectations with the right manufacturing route.</p>
+          <p class="prose-full">These numbers show the scale of the platform. The value comes from how that scale is managed: by aligning product type, construction, materials, production flow, and quality expectations with the right manufacturing route.</p>
         </div>
       </div>
 
       <div class="container constructions section-content">
-        <div class="stack section-intro sr-in">
+        <div class="stack section-intro section-intro--wide sr-in">
           <h3>Advanced constructions and technical applications</h3>
           <p class="lede">Manufacturing capability is defined by how the shoe is built.</p>
-          <p class="grid-span-full" style="max-width:65ch;margin-bottom:24px">These applications are not presented as innovation for its own sake. They matter when they improve product structure, comfort, durability, finish, performance, manufacturing consistency, or commercial execution.</p>
-          <p class="grid-span-full" style="max-width:65ch;margin-bottom:56px">Specializing in heat-welding, ultrasonic bonding, and multi-component outsole integration. We bring technical expertise to complex designs that require precision beyond traditional stitching.</p>
+          <p>These applications are not presented as innovation for its own sake. They matter when they improve product structure, comfort, durability, finish, performance, manufacturing consistency, or commercial execution.</p>
+          <p class="section-intro__tail">Specializing in heat-welding, ultrasonic bonding, and multi-component outsole integration. We bring technical expertise to complex designs that require precision beyond traditional stitching.</p>
         </div>
-        <div class="tech-showcase sr-in">
-          <div class="tech-showcase__lists">
-            <h4 class="tech-group__title">Constructions</h4>
-            <button type="button" class="tech-pick is-active" data-media="assets/media/wire/tech/board-lasted.jpg" data-caption="board-lasted constructions">board-lasted constructions</button>
-            <button type="button" class="tech-pick" data-media="assets/media/Strapol.jpg" data-caption="strobel constructions">strobel constructions</button>
-            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/waterproof-bootie.jpg" data-caption="waterproof bootie systems">waterproof bootie systems</button>
-            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/sacchetto.jpg" data-caption="sacchetto constructions">sacchetto constructions</button>
-            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/vulcanized.jpg" data-caption="vulcanized constructions">vulcanized constructions</button>
-            <h4 class="tech-group__title">Materials &amp; uppers</h4>
-            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/engineered-mesh.jpg" data-caption="engineered mesh uppers">engineered mesh uppers</button>
-            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/knitted-uppers.jpg" data-caption="knitted uppers">knitted uppers</button>
-            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/mixed-material.jpg" data-caption="mixed-material upper developments">mixed-material upper developments</button>
-            <h4 class="tech-group__title">Processes</h4>
-            <button type="button" class="tech-pick" data-media="assets/media/HF Application.JPG" data-caption="HF applications">HF applications</button>
-            <button type="button" class="tech-pick" data-media="assets/media/No-sew.jpg" data-caption="no-sew techniques">no-sew techniques</button>
-            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/computerized-stitching.jpg" data-caption="computerized stitching">computerized stitching</button>
-            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/comfort-engineering.jpg" data-caption="comfort engineering">comfort engineering</button>
-            <button type="button" class="tech-pick" data-media="assets/media/wire/tech/automated-operations.jpg" data-caption="selected automated operations">selected automated operations</button>
+        <div class="tech-showcase sr-in" id="tech-showcase">
+          <div class="tech-showcase__aside">
+            <div class="tech-showcase__list-host" id="tech-showcase-list-host" role="presentation"></div>
           </div>
           <div class="tech-showcase__panel">
-            <div class="tech-showcase__media">
-              <img id="tech-showcase-img" src="assets/media/wire/tech/board-lasted.jpg" alt="" style="width:100%;height:100%;object-fit:cover;transition:opacity 300ms ease">
+            <div class="tech-showcase__media" id="tech-showcase-media">
+              <div class="tech-showcase__shimmer" aria-hidden="true"></div>
+              <img class="tech-showcase__img" id="tech-showcase-img" alt="" />
+              <div class="tech-showcase__video-slot" id="tech-showcase-video-slot" hidden></div>
+              <div class="tech-showcase__overlay">
+                <p class="tech-showcase__item-title" id="tech-showcase-item-title">board-lasted constructions</p>
+              </div>
             </div>
-            <p class="tech-showcase__caption" id="tech-showcase-caption">board-lasted constructions</p>
           </div>
         </div>
       </div>
@@ -471,8 +445,8 @@
         </div>
       </div>
 
-      <div class="container categories cat-section section-content">
-        <div class="stack section-intro sr-in">
+      <div class="container categories cat-section cat-section--closing section-content">
+        <div class="stack section-intro section-intro--wide sr-in">
           <h3>Footwear built around brand categories</h3>
           <p class="lede">Different categories require different answers in fit, materials, construction, tooling, and production scale.</p>
           <p>OPUS supports outleisure, athleisure, outdoor, sneakers, performance, casual, and children’s footwear with development and manufacturing capabilities shaped around how each shoe needs to perform, fit, comfort, and scale.</p>
@@ -518,7 +492,7 @@
           </div>
           <button class="cat-nav cat-nav--next" type="button" aria-label="Next footwear categories">›</button>
         </div>
-        <a class="btn btn--primary" href="#contact" data-cta="Discuss Your Category" data-support="manufacturing">Discuss Your Category</a>
+        <a class="btn btn--primary cat-section__cta" href="#contact" data-cta="Discuss Your Category" data-support="manufacturing">Discuss Your Category</a>
       </div>
     </section>
 
@@ -526,8 +500,8 @@
       <div class="about-intro">
         <div class="media-slot media-slot--bleed" data-media-id="M23" data-kind="video" data-ratio="21/9" data-alt="About OPUS"></div>
         <div class="container about-intro__copy stack">
-          <p class="eyebrow">About OPUS</p>
-          <h2>A footwear partner shaped by people, place, and product</h2>
+          <p class="about-intro__brand">About OPUS</p>
+          <h2 class="about-intro__tagline">A footwear partner shaped by people, place, and product</h2>
           <p class="lede">OPUS is built by footwear people working across Europe and Asia, with expertise in product creation, digital product presentation, and Vietnam-based manufacturing.</p>
           <p>From design thinking in Italy to development and production work in Vietnam, OPUS is structured to support footwear brands from early idea to manufacturing execution through OPUSlab, OPUStudio, and OPUS Manufacturing.</p>
         </div>
@@ -548,7 +522,7 @@
           </div>
 
           <div class="presence section-content">
-            <div class="stack section-intro reveal">
+            <div class="stack section-intro section-intro--wide reveal">
               <h3>Italy and Vietnam working at the center of the OPUS structure</h3>
               <p class="lede">OPUS works through a focused international structure. Italy and Vietnam sit at the center of the company’s product and manufacturing model, while the international structure supports footwear brands’ business operations.</p>
             </div>
@@ -620,7 +594,7 @@
           </div>
 
           <div class="how reveal" id="how-block">
-            <div class="stack section-intro">
+            <div class="stack section-intro section-intro--wide prose-full">
               <h3>A working model shaped around your product stage and brand needs</h3>
               <p class="lede">Every footwear project starts from a different point. Some brands come with an early idea. Others come with a sketch, CAD, 3D model, physical sample, carryover style, digital asset need, outsole challenge, or product ready for manufacturing.</p>
             </div>
@@ -695,7 +669,7 @@
 
     <section class="section section--dark contact" id="contact">
       <div class="wrap contact__grid">
-        <div class="reveal stack">
+        <div class="reveal stack contact__intro prose-full section-intro--wide">
           <h2>Tell us what you want to build</h2>
           <p class="lede">Start a footwear project conversation</p>
           <p>Tell us about your category, development stage, digital asset needs, production goals, and target timeline. OPUS will help identify the right next step across OPUSlab, OPUStudio, and OPUS Manufacturing.</p>
@@ -707,9 +681,8 @@
           </details>
         </div>
 
-        <div class="form-wrap reveal">
-          <p class="form-helper">You do not need to have every answer ready. The purpose is to give OPUS enough context to understand the project and respond with the most relevant route.</p>
-          <form id="lead-form" novalidate>
+        <div class="form-wrap reveal contact__form">
+          <form id="lead-form" class="contact__form-inner" novalidate>
             <input type="hidden" name="utm_source">
             <input type="hidden" name="utm_medium">
             <input type="hidden" name="utm_campaign">
@@ -810,8 +783,17 @@
               <p class="hint" id="attachment-hint">PDF, JPG, PNG, ZIP, or DOC up to 10 MB. Reference files, CADs, tech packs, sample photos, or visual direction.</p>
             </div>
             <div class="field">
-              <label class="check"><input id="privacy_consent" name="privacy_consent" type="checkbox" required> [TO CONFIRM: consent wording] <span class="badge badge--warn">TO CONFIRM</span></label>
+              <label class="check check--legal">
+                <input id="privacy_consent" name="privacy_consent" type="checkbox" required value="yes">
+                <span>I consent to the processing of my personal data, and such data might be shared with the relevant OPUS entities for the purpose of responding to my request. I acknowledge having read and understand the Privacy Notice, including on how to withdraw consent.</span>
+              </label>
               <p class="field-error" aria-live="polite"></p>
+            </div>
+            <div class="field">
+              <label class="check check--legal">
+                <input id="marketing_consent" name="marketing_consent" type="checkbox" value="yes">
+                <span>I consent to the processing of my personal data by companies of the OPUS worldwide for marketing purposes, through which information about OPUS products, processes, news, and events can be brought to my knowledge.</span>
+              </label>
             </div>
             <div class="form-actions">
               <button class="btn btn--primary" type="submit" id="form-submit">Start a Project Inquiry</button>
@@ -862,6 +844,7 @@
   <script src="js/media-url.js"></script>
   <script src="js/video-playback.js"></script>
   <script src="js/media-manifest.js"></script>
+  <script src="js/tech-showcase-data.js"></script>
   <script src="js/main.js"></script>
   <script src="js/components.js"></script>
   <script src="js/autoplay-video.js"></script>

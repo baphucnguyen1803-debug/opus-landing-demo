@@ -11,7 +11,7 @@
 .audience-intro__lede {
   font-size: 20px;
   line-height: 1.6;
-  max-width: 60ch;
+  max-width: none;
   color: rgba(255, 255, 255, 0.85);
 }
 
@@ -64,20 +64,6 @@
   margin: 0;
 }
 
-.audience-card__thumb {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  width: 72px;
-  height: 72px;
-  object-fit: cover;
-  border-radius: 10px;
-  opacity: 0;
-  transform: scale(0.9);
-  transition: opacity 300ms ease, transform 300ms ease;
-  pointer-events: none;
-}
-
 .audience-card:hover,
 .audience-card:focus-within {
   border-color: rgba(217, 123, 74, 0.6);
@@ -88,12 +74,6 @@
 .audience-card:focus-within .audience-card__icon {
   background: #d97b4a;
   color: #fff;
-}
-
-.audience-card:hover .audience-card__thumb,
-.audience-card:focus-within .audience-card__thumb {
-  opacity: 1;
-  transform: scale(1);
 }
 
 @media (max-width: 1024px) {

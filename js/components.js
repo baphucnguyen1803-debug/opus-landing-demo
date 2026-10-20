@@ -188,31 +188,183 @@
   }
 
   function initTechShowcase() {
+    var items = window.TECH_SHOWCASE_ITEMS;
+    var root = document.getElementById("tech-showcase");
+    var mediaWrap = document.getElementById("tech-showcase-media");
     var panelImg = document.getElementById("tech-showcase-img");
-    var caption = document.getElementById("tech-showcase-caption");
-    var picks = document.querySelectorAll(".tech-pick");
-    if (!panelImg || !picks.length) return;
-    var show = function (item) {
-      picks.forEach(function (p) {
-        p.classList.toggle("is-active", p === item);
-      });
-      var src = item.getAttribute("data-media");
-      var cap = item.getAttribute("data-caption");
-      panelImg.style.opacity = "0";
-      panelImg.onload = function () { panelImg.style.opacity = "1"; };
-      panelImg.onerror = function () {
-        panelImg.src = "assets/media/M19-A.jpg";
-      };
-      var url = src || "assets/media/M19-A.jpg";
-      if (typeof window.resolveMediaUrl === "function") url = window.resolveMediaUrl(url);
-      panelImg.src = url;
-      if (caption && caption.offsetParent !== null) caption.textContent = cap || "";
-    };
-    picks.forEach(function (pick) {
-      pick.addEventListener("mouseenter", function () { show(pick); });
-      pick.addEventListener("focus", function () { show(pick); });
-      pick.addEventListener("click", function () { show(pick); });
+    var videoSlot = document.getElementById("tech-showcase-video-slot");
+    var titleEl = document.getElementById("tech-showcase-item-title");
+    var listHost = document.getElementById("tech-showcase-list-host");
+    if (!root || !items || !items.length || !panelImg || !listHost) return;
+    if (root.getAttribute("data-ts-init")) return;
+    root.setAttribute("data-ts-init", "1");
+
+    var tabs = [];
+    var pinned = 0;
+    var activeVideo = null;
+    var tablist = document.createElement("div");
+    tablist.className = "tech-showcase__tablist";
+    tablist.setAttribute("role", "tablist");
+    tablist.setAttribute("aria-label", "Technical applications");
+
+    var lastGroup = "";
+    items.forEach(function (item, index) {
+      if (item.group !== lastGroup) {
+        lastGroup = item.group;
+        var gh = document.createElement("h4");
+        gh.className = "tech-showcase__group-title";
+        gh.textContent = item.group;
+        tablist.appendChild(gh);
+      }
+      var tab = document.createElement("button");
+      tab.type = "button";
+      tab.className = "tech-showcase__tab" + (index === 0 ? " is-active" : "");
+      tab.setAttribute("role", "tab");
+      tab.setAttribute("aria-selected", index === 0 ? "true" : "false");
+      tab.setAttribute("tabindex", index === 0 ? "0" : "-1");
+      tab.setAttribute("data-index", String(index));
+      tab.innerHTML = '<span class="tech-showcase__tab-label">' + item.name + "</span>";
+      tablist.appendChild(tab);
+      tabs.push(tab);
     });
+    listHost.appendChild(tablist);
+
+    function mediaUrl(path) {
+      var url = path || "assets/media/M19-A.jpg";
+      if (typeof window.resolveMediaUrl === "function") url = window.resolveMediaUrl(url);
+      return url;
+    }
+
+    function setActiveUi(index) {
+      tabs.forEach(function (tab, i) {
+        var on = i === index;
+        tab.classList.toggle("is-active", on);
+        tab.setAttribute("aria-selected", on ? "true" : "false");
+        tab.setAttribute("tabindex", on ? "0" : "-1");
+      });
+    }
+
+    function pauseTechVideo() {
+      if (activeVideo) {
+        activeVideo.pause();
+        activeVideo = null;
+      }
+      if (videoSlot) {
+        videoSlot.hidden = true;
+        videoSlot.replaceChildren();
+      }
+    }
+
+    function mountTechVideo(item) {
+      pauseTechVideo();
+      if (!item.video || !window.OpusVideo) return;
+      var src = item.video;
+      if (typeof src === "object" && window.OpusVideo.pickSrc) src = window.OpusVideo.pickSrc(src);
+      if (!src) return;
+      var video = window.OpusVideo.createVideoElement({ src: src, poster: item.media });
+      video.className = "tech-showcase__video";
+      if (item.videoDuration) video.loop = true;
+      videoSlot.hidden = false;
+      videoSlot.appendChild(video);
+      panelImg.classList.add("is-hidden");
+      if (window.OpusVideo.assignSrc) window.OpusVideo.assignSrc(video, src);
+      else video.src = window.OpusVideo.encodePath(src);
+      video.play().catch(function () {});
+      activeVideo = video;
+    }
+
+    function showIndex(index, pin) {
+      if (index < 0 || index >= items.length) return;
+      if (pin) pinned = index;
+      var item = items[index];
+      setActiveUi(index);
+      if (titleEl) titleEl.textContent = item.name;
+
+      if (mediaWrap) mediaWrap.classList.add("is-loading");
+      window.setTimeout(function () {
+        if (mediaWrap) mediaWrap.classList.remove("is-loading");
+      }, 220);
+
+      if (item.video) {
+        mountTechVideo(item);
+      } else {
+        pauseTechVideo();
+        panelImg.classList.remove("is-hidden");
+        panelImg.style.opacity = "0";
+        panelImg.onload = function () {
+          panelImg.style.opacity = "1";
+        };
+        panelImg.onerror = function () {
+          panelImg.src = mediaUrl("assets/media/M19-A.jpg");
+        };
+        panelImg.src = mediaUrl(item.media);
+      }
+    }
+
+    function focusTab(index) {
+      var tab = tabs[index];
+      if (tab) tab.focus();
+    }
+
+    function focusedTabIndex() {
+      var active = document.activeElement;
+      if (active && active.classList.contains("tech-showcase__tab")) {
+        return Number(active.getAttribute("data-index"));
+      }
+      return pinned;
+    }
+
+    tablist.addEventListener("keydown", function (e) {
+      var current = focusedTabIndex();
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        var next = Math.min(items.length - 1, current + 1);
+        showIndex(next, false);
+        focusTab(next);
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        var prev = Math.max(0, current - 1);
+        showIndex(prev, false);
+        focusTab(prev);
+      } else if (e.key === "Home") {
+        e.preventDefault();
+        showIndex(0, false);
+        focusTab(0);
+      } else if (e.key === "End") {
+        e.preventDefault();
+        showIndex(items.length - 1, false);
+        focusTab(items.length - 1);
+      } else if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        showIndex(focusedTabIndex(), true);
+      }
+    });
+
+    tabs.forEach(function (tab) {
+      var index = Number(tab.getAttribute("data-index"));
+      tab.addEventListener("click", function () {
+        showIndex(index, true);
+      });
+      if (finePointer) {
+        tab.addEventListener("mouseenter", function () {
+          showIndex(index, false);
+        });
+        tab.addEventListener("mouseleave", function () {
+          showIndex(pinned, false);
+        });
+      }
+      tab.addEventListener("focus", function () {
+        showIndex(index, false);
+      });
+      tab.addEventListener("blur", function () {
+        window.setTimeout(function () {
+          if (!tablist.contains(document.activeElement)) showIndex(pinned, false);
+        }, 0);
+      });
+    });
+
+    showIndex(0, true);
+    panelImg.alt = items[0].name;
   }
 
   function initCategoryCarousel() {
@@ -263,13 +415,245 @@
     /* Band CTA uses a static image (About OPUS 6). */
   }
 
+  function initServicesStage(config) {
+    var root = document.getElementById(config.rootId);
+    var slot = document.getElementById(config.slotId);
+    var titleEl = document.getElementById(config.titleId);
+    var textEl = document.getElementById(config.textId);
+    var ctaEl = document.getElementById(config.ctaId);
+    var tabs = root && root.querySelectorAll(".lab-services-stage__tab");
+    var items = config.items;
+    if (!root || !slot || !tabs.length || !items || !items.length) return;
+
+    function activate(index) {
+      var item = items[index];
+      if (!item) return;
+      tabs.forEach(function (tab, i) {
+        var on = i === index;
+        tab.classList.toggle("is-active", on);
+        tab.setAttribute("aria-selected", on ? "true" : "false");
+        tab.setAttribute("tabindex", on ? "0" : "-1");
+      });
+      if (titleEl) titleEl.textContent = item.title;
+      if (textEl) textEl.textContent = item.text;
+      if (ctaEl) {
+        ctaEl.innerHTML =
+          item.cta + ' <span class="link-arrow" aria-hidden="true">→</span>';
+        ctaEl.setAttribute("data-cta", item.cta);
+        ctaEl.setAttribute("href", item.href || "#contact");
+      }
+      slot.setAttribute("data-media-id", item.mediaId);
+      if (item.kind) slot.setAttribute("data-kind", item.kind);
+      else slot.setAttribute("data-kind", "video");
+      slot.setAttribute("data-alt", item.title);
+      slot.classList.remove("is-filled");
+      slot.replaceChildren();
+      window.dispatchEvent(new CustomEvent("opus:media-hydrated"));
+    }
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        activate(Number(tab.getAttribute("data-index")));
+      });
+    });
+    activate(0);
+  }
+
+  function initLabServicesStage() {
+    initServicesStage({
+      rootId: "lab-services-stage",
+      slotId: "lab-services-stage-media",
+      titleId: "lab-services-stage-title",
+      textId: "lab-services-stage-text",
+      ctaId: "lab-services-stage-cta",
+      items: [
+        {
+          mediaId: "OPUS-PC",
+          title: "Product Creation",
+          text:
+            "Product Creation shapes the early decisions behind a footwear program: category, consumer, design direction, material logic, construction, fit expectations, cost target, and development route.",
+          cta: "Discuss Product Creation",
+          href: "#contact?service=product-creation",
+        },
+        {
+          mediaId: "M07",
+          title: "Design & 3D Development",
+          text:
+            "Design & 3D Development helps teams review footwear earlier through CAD, 3D models, last-based proportion review, material exploration, and editable digital product data.",
+          cta: "Discuss Design & 3D Development",
+          href: "#contact",
+        },
+        {
+          mediaId: "M08",
+          title: "Virtual Development",
+          text:
+            "Virtual Development supports digital footwear workflows for both new and existing styles. This can include physical-to-digital conversion, reusable 3D style libraries, material and color updates, and virtual assets that help product teams review, update, and manage styles more efficiently across seasons.",
+          cta: "Discuss Virtual Development",
+          href: "#contact",
+        },
+        {
+          mediaId: "M09",
+          title: "Development Center",
+          text:
+            "The Development Center is where footwear becomes physical. It develops last, pattern, construction, materials, development tooling, sampling stages, fitting, testing, line review, and manufacturing readiness.",
+          cta: "Discuss Development Center",
+          href: "#contact",
+        },
+        {
+          mediaId: "M10",
+          title: "Outsole Mould & Tooling Engineering",
+          text:
+            "Outsole Mould and Tooling Engineering focus on the bottom unit of the shoe. OPUSlab supports outsole design, 3D development, blueprinting, mockups, compound and process alignment, mould development, and sole engineering. This helps brands review outsole concepts before mould investment and prepare bottom units for real product, wear, and manufacturing conditions.",
+          cta: "Discuss Outsole Mould & Tooling Engineering",
+          href: "#contact",
+        },
+      ],
+    });
+  }
+
+  function initStudioServicesStage() {
+    var root = document.getElementById("studio-services-stage");
+    var mediaSlot = document.getElementById("studio-services-stage-media");
+    var renderPanel = document.getElementById("studio-render-card");
+    var ecomPanel = document.getElementById("studio-stage-ecom");
+    var renderExtras = document.getElementById("studio-render-extras");
+    var titleEl = document.getElementById("studio-services-stage-title");
+    var textEl = document.getElementById("studio-services-stage-text");
+    var ctaEl = document.getElementById("studio-services-stage-cta");
+    var tabs = root && root.querySelectorAll(".lab-services-stage__tab");
+    if (!root || !mediaSlot || !tabs.length) return;
+
+    var items = [
+      {
+        panel: "render",
+        title: "3D Rendering",
+        text:
+          "Realistic footwear renders for product pages, campaigns, launch previews, sales presentations, and material or colorway updates.",
+        cta: "Discuss Footwear Rendering",
+        href: "#contact",
+      },
+      {
+        panel: "media",
+        mediaId: "M13",
+        title: "Animation",
+        text:
+          "Footwear animation for product storytelling, launch content, websites, social media, campaign assets, and product explainers.",
+        cta: "Discuss Footwear Animation",
+        href: "#contact",
+      },
+      {
+        panel: "media",
+        mediaId: "M14",
+        kind: "image",
+        title: "Digital Asset Creation",
+        text:
+          "Reusable digital product assets and digital style libraries that support sales teams, e-commerce, seasonal updates, launch planning, and internal product communication.",
+        cta: "Discuss Digital Product Assets",
+        href: "#contact",
+      },
+      {
+        panel: "ecom",
+        title: "Interactive E-commerce",
+        text:
+          "Interactive e-commerce visuals for online product presentation, digital catalogs, and clearer product viewing across commercial channels.",
+        cta: "Plan E-commerce Visuals",
+        href: "#contact",
+      },
+    ];
+
+    function refreshStudioModelViewer() {
+      var mv = document.getElementById("studio-shoe-model");
+      if (!mv) return;
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          if (typeof mv.updateFraming === "function") mv.updateFraming();
+          if (typeof mv.jumpCameraToGoal === "function") mv.jumpCameraToGoal();
+          window.dispatchEvent(new Event("resize"));
+        });
+      });
+    }
+
+    function setPanel(panel) {
+      if (renderPanel) {
+        var onRender = panel === "render";
+        renderPanel.classList.toggle("is-active", onRender);
+        renderPanel.setAttribute("aria-hidden", onRender ? "false" : "true");
+      }
+      if (ecomPanel) {
+        var onEcom = panel === "ecom";
+        ecomPanel.classList.toggle("is-active", onEcom);
+        ecomPanel.setAttribute("aria-hidden", onEcom ? "false" : "true");
+        if (onEcom) refreshStudioModelViewer();
+      }
+      var onMedia = panel === "media";
+      mediaSlot.classList.toggle("is-active", onMedia);
+      mediaSlot.setAttribute("aria-hidden", onMedia ? "false" : "true");
+      if (renderExtras) renderExtras.hidden = panel !== "render";
+      if (!onMedia) {
+        var vid = mediaSlot.querySelector("video");
+        if (vid) vid.pause();
+      }
+    }
+
+    function activate(index) {
+      var item = items[index];
+      if (!item) return;
+      tabs.forEach(function (tab, i) {
+        var on = i === index;
+        tab.classList.toggle("is-active", on);
+        tab.setAttribute("aria-selected", on ? "true" : "false");
+        tab.setAttribute("tabindex", on ? "0" : "-1");
+      });
+      if (titleEl) titleEl.textContent = item.title;
+      if (textEl) textEl.textContent = item.text;
+      if (ctaEl) {
+        ctaEl.innerHTML =
+          item.cta + ' <span class="link-arrow" aria-hidden="true">→</span>';
+        ctaEl.setAttribute("data-cta", item.cta);
+        ctaEl.setAttribute("href", item.href || "#contact");
+      }
+      setPanel(item.panel);
+      if (item.panel === "media") {
+        mediaSlot.setAttribute("data-media-id", item.mediaId);
+        if (item.kind) mediaSlot.setAttribute("data-kind", item.kind);
+        else mediaSlot.setAttribute("data-kind", "video");
+        mediaSlot.setAttribute("data-alt", item.title);
+        mediaSlot.classList.remove("is-filled");
+        mediaSlot.replaceChildren();
+        window.dispatchEvent(new CustomEvent("opus:media-hydrated"));
+      }
+    }
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        activate(Number(tab.getAttribute("data-index")));
+      });
+    });
+    activate(0);
+  }
+
+  function initWhatsAppFab() {
+    var fab = document.getElementById("whatsapp-fab");
+    var cfg = window.SITE_CONFIG || {};
+    var phone = (cfg.whatsappPhone || "").replace(/\D/g, "");
+    if (!fab || !phone) return;
+    var msg = cfg.whatsappMessage || "";
+    fab.href = "https://wa.me/" + phone + (msg ? "?text=" + encodeURIComponent(msg) : "");
+    fab.removeAttribute("hidden");
+  }
+
+  window.OpusInitWhatsAppFab = initWhatsAppFab;
+
   function boot() {
     initScrollReveal();
     initHoverVideos();
     initStageMarkers();
     initTechShowcase();
+    initLabServicesStage();
+    initStudioServicesStage();
     initCategoryCarousel();
     initBandCtaVideo();
+    initWhatsAppFab();
   }
 
   if (document.readyState === "loading") {
@@ -277,6 +661,8 @@
   } else {
     boot();
   }
+
+  window.addEventListener("load", initWhatsAppFab);
 
   window.addEventListener("opus:media-hydrated", function () {
     initHoverVideos();

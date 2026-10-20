@@ -22,5 +22,8 @@ window.SITE_CONFIG = {
   afterSubmitRedirect: "#top",
   mainSiteUrl: "",
   /* Set true only when cad.jpg and render.jpg are the same shoe, angle, and framing. */
-  comparisonReady: true
+  comparisonReady: true,
+  /* E.164 digits only, no + or spaces — e.g. Vietnam HQ. Leave empty to hide the FAB. */
+  whatsappPhone: "84335012032",
+  whatsappMessage: "Hello OPUS — I would like to discuss a footwear project."
 };
