@@ -1,0 +1,70 @@
+/* Pillar section titles — brand name larger than tagline; smaller sub-lede */
+.section-brand-name {
+  margin: 0;
+  font-size: clamp(40px, 5.2vw, 64px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  text-transform: none;
+  color: #a85b38;
+}
+
+#opustudio .section-brand-name {
+  color: #d97b4a;
+}
+
+.section-brand-tagline {
+  margin-top: 12px;
+  font-size: clamp(22px, 2.6vw, 34px) !important;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  max-width: none;
+  text-wrap: wrap;
+}
+
+.stack > .section-brand-name + .section-brand-tagline {
+  margin-top: 10px;
+}
+
+.section-lede--sm {
+  font-size: clamp(15px, 1.5vw, 17px) !important;
+  line-height: 1.55;
+  margin-top: 14px;
+}
+
+#opustudio .section-lede--sm {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+#opuslab .section-lede--sm,
+#manufacturing .section-lede--sm {
+  color: var(--color-muted);
+  max-width: none;
+}
+
+#manufacturing .manufacturing-split .section-brand-tagline,
+#manufacturing .manufacturing-split .section-lede--sm {
+  max-width: none;
+}
+
+.about-intro__copy .about-intro__brand {
+  margin: 0;
+  font-size: clamp(44px, 5.8vw, 72px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  text-transform: none;
+  color: #fff;
+}
+
+.about-intro__copy .about-intro__tagline {
+  margin-top: 12px;
+  font-size: clamp(20px, 2.4vw, 30px) !important;
+  font-weight: 600;
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+  color: #fff;
+  max-width: none;
+  text-wrap: wrap;
+}

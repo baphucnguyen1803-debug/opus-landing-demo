@@ -206,7 +206,7 @@ body.menu-open .mobile-cta {
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: 22px 22px 26px;
+  padding: 22px 22px 34px;
 }
 
 .pillar-card__body p {
@@ -578,7 +578,35 @@ body.menu-open .mobile-cta {
 
 /* Contact */
 .contact__grid {
-  gap: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  width: 100%;
+}
+
+.contact .contact__intro {
+  width: 100%;
+  max-width: none;
+}
+
+.contact .contact__intro.prose-full :is(h2, p, .lede),
+.contact .contact__intro .details-next,
+.contact .contact__intro .details-next__body p {
+  max-width: none;
+}
+
+.contact .contact__intro .details-next {
+  width: 100%;
+}
+
+.contact__form,
+.contact__form-inner {
+  width: 100%;
+  max-width: none;
+}
+
+.contact__grid .form-wrap {
+  width: 100%;
 }
 
 .details-next {
@@ -658,6 +686,16 @@ body.menu-open .mobile-cta {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: #9b978e;
+}
+
+.check--legal {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--color-muted);
+}
+
+.check--legal span {
+  flex: 1;
 }
 
 .check {

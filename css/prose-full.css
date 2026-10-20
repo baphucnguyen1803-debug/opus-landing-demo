@@ -1,0 +1,45 @@
+/* Full-width body copy within container */
+.prose-full p,
+.prose-full .lede,
+.prose-full > p {
+  max-width: none;
+}
+
+.hero__copy.prose-full {
+  max-width: min(calc(100% - 40px), 1280px);
+}
+
+.hero__copy.prose-full h1 {
+  max-width: none;
+}
+
+.hero__copy.prose-full > p {
+  max-width: none;
+}
+
+#stats-band > .wrap > p {
+  max-width: none;
+}
+
+.stages__close.prose-full {
+  max-width: none;
+}
+
+.opustudio-intro.prose-full .lede,
+.opustudio-intro.prose-full > p {
+  max-width: none;
+}
+
+.audience-intro.prose-full .audience-intro__lede {
+  max-width: none;
+}
+
+.how .section-intro.prose-full .lede,
+.how .section-intro.prose-full > h3 {
+  max-width: none;
+}
+
+.lab-services-stage__body.prose-full p,
+.lab-services-stage.prose-full .lab-services-stage__body p {
+  max-width: none;
+}

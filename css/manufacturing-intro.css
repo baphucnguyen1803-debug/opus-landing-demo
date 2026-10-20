@@ -1,0 +1,23 @@
+#manufacturing.section {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+#manufacturing .manufacturing-intro {
+  padding-block: clamp(64px, 8vw, 112px);
+}
+
+#manufacturing .manufacturing-split {
+  align-items: center;
+  gap: clamp(32px, 4vw, 56px);
+}
+
+#manufacturing .manufacturing-split .media-slot {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  #manufacturing .manufacturing-split {
+    grid-template-columns: 1fr 1fr;
+  }
+}

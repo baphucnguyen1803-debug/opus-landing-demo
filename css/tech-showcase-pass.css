@@ -14,6 +14,32 @@
     grid-template-columns: 7fr 5fr;
     gap: 48px;
   }
+
+  .tech-showcase__panel {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .tech-showcase__aside {
+    grid-column: 2;
+    grid-row: 1;
+  }
+}
+
+@media (max-width: 1023px) {
+  .tech-showcase {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .tech-showcase__aside {
+    order: -1;
+  }
+
+  .tech-showcase__list-host {
+    display: block;
+  }
 }
 
 .tech-showcase__panel,
@@ -115,25 +141,15 @@
   pointer-events: none;
 }
 
-.tech-showcase__counter {
-  margin: 0 0 6px;
-  font-size: 13px;
-  font-variant-numeric: tabular-nums;
-  color: rgba(255, 255, 255, 0.7);
-}
-
 .tech-showcase__item-title {
-  margin: 0 0 8px;
-  font-size: 22px;
+  margin: 0;
+  font-size: clamp(18px, 2.5vw, 22px);
   font-weight: 600;
   line-height: 1.25;
 }
 
-.tech-showcase__context {
-  margin: 0;
-  font-size: 15px;
-  line-height: 1.45;
-  color: rgba(255, 255, 255, 0.8);
+.tech-showcase__tab-index {
+  display: none;
 }
 
 .tech-showcase__list-host {
@@ -145,10 +161,6 @@
 @media (min-width: 1024px) {
   .tech-showcase__list-host {
     display: block;
-  }
-
-  .tech-showcase__chips-host {
-    display: none;
   }
 }
 

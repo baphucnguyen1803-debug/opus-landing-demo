@@ -385,7 +385,7 @@
   function initStats() {
     var band = document.getElementById("stats-band");
     if (!band) return;
-    var nums = band.querySelectorAll(".stats-tier1__num[data-count]");
+    var nums = band.querySelectorAll("[data-count]");
     var run = function () {
       nums.forEach(function (el, i) {
         var end = Number(el.getAttribute("data-count"));
@@ -395,7 +395,7 @@
           return;
         }
         var floor = Math.round(end * 0.7);
-        var delay = i * 100;
+        var delay = i * 80;
         var dur = 1200;
         window.setTimeout(function () {
           var start = performance.now();
@@ -588,7 +588,11 @@
         data.support.push(value);
       } else if (key === "attachment") {
         data.attachment = value && value.name ? value.name : "";
-      } else if (key !== "privacy_consent") {
+      } else if (key === "privacy_consent") {
+        data.privacy_consent = value ? "yes" : "";
+      } else if (key === "marketing_consent") {
+        data.marketing_consent = value ? "yes" : "";
+      } else {
         data[key] = value;
       }
     });
@@ -664,8 +668,14 @@
     if (field.type === "hidden" || field.type === "file" || field.name === "support") return true;
     if (field.type === "checkbox" && field.name === "privacy_consent") {
       var ok = field.checked;
-      setError(field, ok ? "" : "[TO CONFIRM: consent wording]");
+      setError(
+        field,
+        ok ? "" : "Please confirm consent to process your data for this request."
+      );
       return ok;
+    }
+    if (field.type === "checkbox" && field.name === "marketing_consent") {
+      return true;
     }
     if (field.required && !String(field.value || "").trim()) {
       setError(field, field.labels && field.labels[0] ? field.labels[0].textContent : "");
@@ -813,4 +823,8 @@
   initMotion();
   initSectionAnimations();
   window.dispatchEvent(new CustomEvent("opus:media-hydrated"));
+
+  window.addEventListener("load", function () {
+    if (typeof window.OpusInitWhatsAppFab === "function") window.OpusInitWhatsAppFab();
+  });
 })();

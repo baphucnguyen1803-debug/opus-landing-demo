@@ -626,7 +626,7 @@ h3,
 }
 
 /* —— Steps —— */
-.how .lede {
+.how .section-intro:not(.section-intro--wide) .lede {
   max-width: 65ch;
 }
 

@@ -898,6 +898,25 @@
   position: relative;
 }
 
+#manufacturing .cat-section--closing {
+  padding-bottom: 0;
+}
+
+#manufacturing .cat-section__cta {
+  display: inline-flex;
+  margin-top: 32px;
+  margin-bottom: 0;
+}
+
+/* Guaranteed light-band gap before About video (padding alone was not visible in layout) */
+#manufacturing .cat-section--closing::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: clamp(72px, 9vw, 120px);
+  pointer-events: none;
+}
+
 .cat-track-wrap {
   position: relative;
 }
